@@ -1,0 +1,127 @@
+\documentclass[12pt]{article}
+%\usepackage{scicite}
+\usepackage{times}
+\usepackage{hyperref}
+\usepackage{setspace}
+
+
+\topmargin 0.0cm
+\oddsidemargin 0.2cm
+\textwidth 16cm 
+\textheight 21cm
+\footskip 1.0cm
+
+%The next command sets up an environment for the abstract to your paper.
+
+\newenvironment{sciabstract}{%
+\begin{quote} \bf}
+{\end{quote}}
+
+
+% If your reference list includes text notes as well as references,
+% include the following line; otherwise, comment it out.
+
+%\renewcommand\refname{References}
+
+% The following lines set up an environment for the last note in the
+% reference list, which commonly includes acknowledgments of funding,
+% help, etc.  It's intended for users of BibTeX or the {thebibliography}
+% environment.  Users who are hand-coding their references at the end
+% using a list environment such as {enumerate} can simply add another
+% item at the end, and it will be numbered automatically.
+
+
+
+
+% Include your paper's title here
+
+\title{FYS4150 Project 1} 
+\author
+{Mikkel Killingmoe Christensen\\
+\\
+\normalsize{\today}
+}
+
+% Include the date command, but leave its argument blank.
+
+\date{}
+%%%%%%%%%%%%%%%%% END OF PREAMBLE %%%%%%%%%%%%%%%%
+
+
+
+\begin{document} 
+
+% Double-space the manuscript.
+
+\baselineskip24pt
+
+% Make the title.
+
+\maketitle 
+
+
+
+% Place your abstract within the special {sciabstract} environment.
+
+\begin{center}
+{\large \textbf{Abstract}}
+\end{center}
+\begin{sciabstract}
+Insert  Abstract here
+\end{sciabstract}
+
+\section{Section}
+Section
+
+\subsection{Subsection}
+Subsection
+
+\begin{flushleft}
+
+\begin{thebibliography}{}
+
+\singlespacing
+\small
+
+
+\bibitem{URL}
+  BBC News (2014),
+  Stephen Hawking warns artificial intelligence could end mankind,
+  \url{http://www.bbc.com/news/technology-30290540},
+  accessed: 10th of October 2016
+
+  
+\bibitem{Article}
+  S. Regot, J. Macia,N. Conde, K. Furukawa,J Kjellén, T. Peeters, S. Hohmann, E. de Nadal, F. Posas, R. Solé (2011),
+  Distributed biological computation with multicellular engineered networks,
+  \emph{Nature}, Vol. 69(7329), pp. 207-211
+  
+\end{thebibliography}
+\end{flushleft}
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
