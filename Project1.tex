@@ -1,0 +1,269 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,norsk]{babel}
+\usepackage{amsmath}
+
+\pagestyle{empty}
+
+%% Numbered exercises
+\newcounter{excount}[chapter]
+\newenvironment{exercise}[1][]{\addtocounter{excount}{1} \noindent {\bf Oppgave
+    \arabic{excount} \ \ #1}\hspace{2mm}}{\vspace{4mm}}
+
+\title{FYS2140 Kvantefysikk, Oblig 10}
+
+
+\author{Mikkel Killingmoe Christensen, gruppe 2}
+
+
+\begin{document}
+
+\maketitle
+
+
+
+\noindent
+Dette er nok en oblig som dreier seg om hydrogenatomet og er en del av en tidligere eksamensoppgave.
+
+\bigskip
+
+\begin{exercise}[\\]
+I denne oppgaven ser vi bort fra elektronets egenspinn. H-atomet kan da beskrives ved tilstandsfunksjonene $\psi_{n l m_{l}}(\vec{r})$ som har f{\o}lgende egenskaper:
+\begin{eqnarray}
+\hat{H}_0 \psi_{n l m_{l}}(\vec{r}) &=&
+E_{n} \psi_{n l m_{l}}(\vec{r}),                   \\
+\hat{L}^2 \psi_{n l m_{l}}(\vec{r}) &=&
+\hbar^2 l(l+1) \psi_{n l m_{l}}(\vec{r}),          \\
+\hat{L}_{z} \psi_{n l m_{l}}(\vec{r}) &=&
+\hbar m_l \psi_{n l m_{l}}(\vec{r}),                \\
+\int \psi^{*}_{n l m_{l}}(\vec{r}) \psi_{n' l' m'_{l}}(\vec{r}) \, d^3\vec{r} &=&
+\delta_{n,n'} \delta_{l,l'} \delta_{m_l,m_l'},
+\end{eqnarray}
+hvor
+\begin{equation}
+\delta_{k,k^{'}} = \left \{ \begin{array}{ll} 1& {\rm for~} k = k'\\
+															  0 & {\rm ellers.}\\
+										 \end{array}
+							\right . \nonumber
+\end{equation}
+\begin{itemize}
+\item[\bf a)] Hva kaller vi disse (to) typene ligninger?\\
+\\
+\textbf{Svar:}\\
+\textbf{De tre første likningene kalles egenverdiligninger, og den siste er et ortonormalitetsintegral. }
+\end{itemize}
+
+\noindent
+Operatoren $\hat{H}_{0}$ er tidsuavhengig. Kvantetallet $n$ kan anta verdiene $1, 2,\ldots$. For en gitt verdi av $n$ kan $l$ anta verdiene $0, 1, \ldots , n-1$, og $m_{l}$ kan for en gitt verdi av $l$ anta verdiene $-l, -l+1, \ldots , l-1, l$.
+
+I denne oppgaven trengs ingen andre opplysninger enn de som er gitt ovenfor. Det er ikke n{\o}dvendig {\aa} kjenne de eksplisitte uttrykkene for operatorene $\hat{H}_0$, $ \hat{L}^2$ og $\hat{L}_z$. Det skal ikke tas hensyn til elektronets egenspinn.
+\begin{itemize}
+%
+\item[\bf b)] Hvilke fysiske st{\o}rrelser er representert ved operatorene $\hat{H}_{0}$, $\hat{L}^2$ og $\hat{L}_z$?\\
+\\
+\textbf{Svar:\\
+$\hat{H}_{0}$ representerer energien, $\hat{L}^2$ representerer kvadratet av angulærmomentet og $\hat{L}_z$ representerer z-komponenten til angulærmomentet.}
+
+\item[\bf c)] Hvilke fysiske st{\o}rrelser har skarpe verdier i tilstanden $\psi_{n l m_{l}}(\vec{r})$?\\
+\\
+\textbf{Svar:\\
+Det kan vises at operatorene $\hat{H}_{0}$, $\hat{L}^2$ og $\hat{L}_z$ kommuterer. Det medfører at de har de skarpe verdiene E, $L^2$ og $L_z$}
+
+\end{itemize}
+
+\noindent
+Ved tiden $t = 0$ er H-atomets tilstand beskrevet ved tilstandsfunksjonen
+$\psi_{n l m_{l}}(\vec{r})$. Tidsutviklingen av tilstandsfunksjonen er bestemt
+av den tidsavhengige Schr\"{o}dingerligningen
+\begin{equation}
+\hat{H}_{0} \Psi (\vec{r}, t) = i\hbar \frac{\partial }{\partial t} \Psi (\vec{r}, t).
+\end{equation}
+\begin{itemize}
+\item[\bf d)] Bestem tilstandsfunksjonen som beskriver H-atomets tilstand ved tiden $t$.\\
+\\
+\textbf{Svar:}\\
+Tilstandsfunksjonen er gitt som:
+\begin{equation}
+\Psi(\vec{r},t) = \sum_{k}c_{k}\psi_{k}(\vec{r})e^{-\frac{i}{\hbar}E_{k}t}
+\end{equation}
+hvor $c_{k}$ er gitt som:
+\begin{equation}
+c_{k} = \int\psi_{k}^{\ast}(\vec{r})\psi(\vec{r})d\vec{r}
+\end{equation}
+Dette gir (ved å utnytte ortonormalitetsintegralet (4)) den endelige tilstandsfunksjonen:
+\begin{equation}
+\bf \Psi(\vec{r},t) = \psi_{nlm_{l}}(\vec{r})e^{-\frac{i}{\hbar}E_{n}t}
+\end{equation}
+
+\end{itemize}
+
+\noindent
+\\
+La H-atomets tilstand ved tiden $t = 0$ n{\aa} v{\ae}re gitt ved
+tilstandsfunksjonen
+\begin{eqnarray}
+\Phi (\vec{r}) = \frac{1}{\sqrt{2l+1}} \sum_{m_{l} = -l}^{l}
+\psi_{n l m_{l}}(\vec{r}).
+\label{a}
+\end{eqnarray}
+\begin{itemize}
+\item[\bf e)] Vis at $\Phi (\vec{r})$ er normert.\\
+\\
+\textbf{Svar:}\\
+\begin{equation}
+\int\int\int\Phi^{\ast}(\vec{r})\Phi(\vec{r})d^{3}\vec{r}
+\end{equation}
+\begin{equation}
+= \int_{0}^{\infty}\int_{0}^{\pi}\int_{0}^{2\pi}\frac{1}{\sqrt{2l+1}}\sum_{m_{l}=-l}^{l}\psi^{\ast}_{nlm_{l}}(\vec{r})\frac{1}{\sqrt{2l+1}}\psi_{n'l'm_{l}'}(\vec{r})d\phi d\theta dr
+\end{equation}
+(utnytter ortonormalitetsintegralet (4) og ser at noen integraler = 0)
+\begin{equation}
+=\frac{1}{2l+1}\sum_{m_{l}=-l}^{l}\int_{0}^{\infty}\int_{0}^{\pi}\int_{0}^{2\pi}\psi^{\ast}_{nlm_{l}}(\vec{r})\psi_{n'l'm_{l}'}(\vec{r})d^{3}\vec{r}
+\end{equation}
+(integralet i (12) blir antall $m_{l}$ som er lik $2l+1$)
+\begin{equation}
+=\frac{2l+1}{2l+1} = \bf 1
+\end{equation}
+
+
+\item[\bf f)] Vis at tilstandsfunksjonen ved tiden $t$ er
+\begin{eqnarray}
+\Psi (\vec{r}, t) = \Phi (\vec{r}) \exp{\left( -\frac{i}{\hbar } E_{n} t \right)}.
+\label{b}
+\end{eqnarray}\\
+\\
+\textbf{Svar:}\\
+Har fra likning (6) at tilstandsfunksjonen er gitt ved:
+\begin{equation}
+\Psi(\vec{r},t) = \sum_{k}c_{k}\psi_{k}(\vec{r})e^{-\frac{i}{\hbar}E_{k}t}
+\end{equation}
+hvor
+\begin{equation}
+|c_{k}|^{2} = \langle\psi^{\ast}_{k}|\Phi\rangle
+\end{equation}
+Dette gir at:
+\begin{equation}
+c_{nlm_{l}}=\frac{1}{\sqrt{2l+1}}
+\end{equation}
+som insatt i (15) gir:
+\begin{equation}
+\Psi(\vec{r},t) = \sum_{m_{l}=-l}^{l}\frac{1}{\sqrt{2l+1}}\psi_{nlm_{l}}(\vec{r})e^{-\frac{i}{\hbar}E_{n}t}
+\end{equation}
+Setter inn for $\Phi$ fra likning (9) og får:
+\begin{equation}
+\bf\Psi(\vec{r},t) = \Phi(\vec{r})e^{-\frac{i}{\hbar}E_{n}t}
+\end{equation}
+
+\item[\bf g)] Bestem forventningsverdien for operatorene $\hat{H}_{0}$, $\hat{L}^2$ og $\hat{L}_z$ i tilstanden som er beskrevet ved tilstandsfunksjonen $\Psi (\vec{r}, t)$ i ligning~(\ref{b}).\\
+\\
+\textbf{Svar:}\\
+Når en går fra $\psi_{nlm_{l}}(\vec{r})$ til $\Phi(\vec{r})$ endres kun $m_{l}$. Dette påvirker kun operatoren $\hat{L}_{z}$.
+\begin{equation}
+\langle\hat{H_{0}}\rangle = \langle\psi|\hat{H}\psi\rangle = E_{n}
+\end{equation}
+\begin{equation}
+\langle\hat{L}^{2}\rangle = \langle\psi|\hat{L}^{2}\psi\rangle = \bf \hbar^{2}l(l+1)
+\end{equation}
+\begin{equation}
+\langle\hat{L}_{z}\rangle = \langle\psi|\hat{L}_{z}\psi|\rangle = \frac{\hbar}{2l+1}\sum_{m_{l}=-l}^{l}m_{l} = \bf 0
+\end{equation}
+(fordi $\sum_{m_{l}=-l}^{l}m_{l}$ = 0)
+
+\end{itemize}
+
+\noindent
+En st{\o}rrelse $A$ er representert ved operatoren $\hat{A}$. Spredningen $\sigma _A$ i tilstanden $\Psi$ er definert slik:
+\begin{equation}
+\sigma_ A = \sqrt{\langle \hat{A}^2 \rangle - \langle \hat{A} \rangle^2}.
+\end{equation}
+\begin{itemize}
+\item[\bf h)] Finn spredningen av st{\o}rrelsene representert ved operatorene $\hat{H}_{0}$, $\hat{L}^2$ og $\hat{L}_z$ i tilstanden som er beskrevet ved tilstandsfunksjonen $\Psi (\vec{r}, t)$ i ligning~(\ref{b}).\\
+\\
+\textbf{Svar:}\\
+\begin{equation}
+\sigma_{H_{0}}=\sqrt{\langle\hat{H_{0}}^{2}\rangle-\langle\hat{H_{0}}\rangle^{2}}=\sqrt{E_{n}-E_{n}}=\bf 0
+\end{equation}
+\begin{equation}
+\sigma_{L^{2}} = \sqrt{\langle\hat{L}^{2^{2}}\rangle-\langle\hat{L}^{2}\rangle^{2}}=\sqrt{\hbar^{4}l^{2}(l+1)^{2}-\hbar^{4}l^{2}(l+1)^{2}} = \bf 0
+\end{equation}
+\begin{equation}
+\sigma_{L_{z}} = \sqrt{\langle\hat{L^{2}}_{z}\rangle-\langle\hat{L}_{z}\rangle^{2}} = \sqrt{\frac{\hbar^{2}}{2l+1}\sum_{m_{l}=l}^{l}m_{l}^{2}-0}
+\end{equation}
+\begin{equation}
+= \frac{\hbar}{\sqrt{2l+1}}\sqrt{\sum_{m_{l}=l}^{l}m_{l}^{2}}=\frac{\hbar}{\sqrt{2l+1}}\sqrt{2\sum_{m_{l}=0}^{l}m_{l}^{2}}
+\end{equation}
+\begin{equation}
+= \frac{\hbar}{\sqrt{2l+1}}\sqrt{2\frac{l(l+1)(2l+1)}{6}}=\bf \hbar\frac{l(l+1)}{3}
+\end{equation}
+hvor det har blitt brukt at $\sum_{m_{l}=0}^{l}m_{l}^{2}$ kan skrives som $\frac{l(l+1)(2l+1)}{6}$ fra Rottmann s.111.
+\end{itemize}
+
+\noindent
+La H-atomets tilstand ved tiden $t = 0$ v{\ae}re gitt ved tilstandsfunksjonen $\Phi (\vec{r})$ i ligning~(\ref{a}) og la oss tenke oss at vi foretar en id\'eell
+m\aa ling av $L_{z}$.
+\begin{itemize}
+\item[\bf i)] Hvor stor er sannsynligheten for {\aa} observere den bestemte verdien
+$\hbar  m_{l} $ for $L_z$ ved tiden $t = 0$?\\
+\\
+\textbf{Svar:}\\
+Sannsynligheten er gitt ved formelen $|c_{k}|^{2}$.\\
+Dette gir at:
+\begin{equation}
+|c_{m_{l}}|^{2}=|\frac{1}{\sqrt{2l+1}}|^{2}=\bf \frac{1}{2l+1}
+\end{equation}
+
+
+\item[\bf j)] Vil denne sannsynligheten v{\ae}re avhengig av ved hvilken tid $t > 0$
+m\aa lingen utf\o res?\\
+\\
+\textbf{Svar:\\
+Vi kan se at formelen $\Psi(\vec{r},t) = \sum_{k}c_{k}\psi_{k}(\vec{r})e^{-\frac{i}{\hbar}E_{k}t}$ gjelder for alle t. Dette medfører at sannsynligheten ikke vil være avhengig av hvilken tid vi måler den ved.}
+
+
+%
+\end{itemize}
+%
+
+\noindent
+Vi lar n{\aa} H-atomet befinne seg i et homogent magnetfelt $B$ og velger $z$-aksen langs magnetfeltet. Hamilton operatoren for systemet er da
+\begin{eqnarray}
+\hat{H} = \hat{H}_{0} + \frac{e}{2m} B \hat{L}_{z},
+\end{eqnarray}
+der $-e$ er elektronets ladning og $m$ er elektronets masse.
+\begin{itemize}
+\item[\bf k)] Bestem H-atomets energi i tilstanden $\psi_{n l m_{l}}(\vec{r})$.\\
+\\
+\textbf{Svar:}\\
+\begin{equation}
+\hat{H}\psi_{nlm_{l}}(\vec{r})=E_{tot}\psi_{nlm_{l}}
+\end{equation}
+\begin{equation}
+E_{tot}\psi_{nlm_{l}}(\vec{r})=\bigg[\hat{H}_{0}+\frac{e}{2m}B\hat{L}_{z}\bigg]\psi_{nlm_{l}} = E_{n}\psi_{nlm_{l}}+\frac{e}{2m}B\hat{L}_{z}\psi_{nlm_{l}}
+\end{equation}
+Deler så på $\psi_{nlm_{l}}$ og får:
+\begin{equation}
+\Rightarrow \bf E_{tot} = E_{n} + \frac{e}{2m}B\hat{L}_{z}
+\end{equation}
+
+\item[\bf l)] Er tilstanden $\Phi (\vec{r})$ i ligning~(\ref{a}) en energi-egentilstand for $\hat{H}$? Begrunn svaret.\\
+\\
+\textbf{Svar:}\\
+Fordi $\Phi(\vec{r})$ er en lineærkombinasjon av $\psi_{nlm_{l}}$ som igjen er energi-egentilstander for $\hat{H}$, er også $\Phi(\vec{r})$ dette. 
+
+\item[\bf m)] Bestem forventningsverdien til $\hat{H}$ i tilstanden $\Phi (\vec{r})$.\\
+\\
+\textbf{Svar:}\\
+\begin{equation}
+\langle\hat{H}\rangle=\langle\Phi|\hat{H}\Phi\rangle = \langle\Phi|(\hat{H}_{0}+\frac{e}{2m}B\hat{L}_{z})\Phi\rangle = \langle\Phi|\hat{H}_{0}\Phi\rangle+\langle\Phi|\frac{e}{2m}B\hat{L}_{z}\Phi\rangle
+\end{equation}
+\begin{equation}
+= E_{n} + \frac{eB\hbar}{2m(2l+1)}\sum_{m_{l}=-l}^{l}m_{l} = \bf E_{n}
+\end{equation}
+
+\end{itemize}
+\end{exercise}
+
+
+\end{document}
