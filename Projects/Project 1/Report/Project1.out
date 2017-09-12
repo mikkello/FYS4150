@@ -9,4 +9,7 @@
 \BOOKMARK [3][-]{subsubsection.2.2.4}{Gaussian elimination of a tridiagonal matrix}{subsection.2.2}% 9
 \BOOKMARK [3][-]{subsubsection.2.2.5}{Numerical implementation of the special case}{subsection.2.2}% 10
 \BOOKMARK [2][-]{subsection.2.3}{LU-decomposition}{section.2}% 11
-\BOOKMARK [1][-]{section.3}{Experimental}{}% 12
+\BOOKMARK [1][-]{section.3}{Method and results}{}% 12
+\BOOKMARK [2][-]{subsection.3.1}{Plot of the analytical solution}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.2}{Implementation of general solver}{section.3}% 14
+\BOOKMARK [1][-]{section.4}{Discussion and conclusion}{}% 15

@@ -5,6 +5,8 @@
 \usepackage{setspace}
 \usepackage{amsmath}
 \usepackage{listings}
+\usepackage{graphicx}
+
 
 \makeatletter
 \renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
@@ -133,7 +135,7 @@ being a tridiagonal  $n\times n$ matrix. The problem is now possible to solve by
 
 \subsubsection{Analytical solution}
 Analytical solutions exists for the Poisson equation problem, and it will be useful to compare this to the numerical results. 
-For the source term:
+For the term:
 \begin{equation}
 f(x) = 100e^{-10x}
 \end{equation}
@@ -328,14 +330,32 @@ can be solved to find $\mathbf{u}$.
 
 \section{Method and results}
 \subsection{Plot of the analytical solution}
-The analytical solution was plotted to get a feeling of what the numerical solution would look like.
+The analytical solution was plotted to get a feeling of what the numerical solution would look like. It can be seen in figure (\ref{fig:analytical}).
+
+\begin{figure}
+\caption{Analytical solution}
+\label{fig:analytical}
+\includegraphics[]{analytical.png}
+\end{figure}
+
+\subsection{Implementation of general solver}
+A Python-program for the general solver was made, and the second derivative for $f(x)=100e^{-10x}$ was calculated and compared with the analytical results for $n = 10, 100, 1000$. The calculation times were calculated and can be found in table (\ref{tab:general}).
 
 
+\begin{table}[]
+\centering
+\caption{My caption}
+\label{tab:general}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+n    & General & Special & LU &  \\ \hline
+10   &         &         &    &  \\ \hline
+100  &         &         &    &  \\ \hline
+1000 &         &         &    &  \\ \hline
+\end{tabular}
+\end{table}
 
-
-
-
-
+\section{Discussion and conclusion}
 
 
 
@@ -364,17 +384,13 @@ The analytical solution was plotted to get a feeling of what the numerical solut
 \small
 
 
-\bibitem{URL}
-  BBC News (2014),
-  Stephen Hawking warns artificial intelligence could end mankind,
-  \url{http://www.bbc.com/news/technology-30290540},
-  accessed: 10th of October 2016
+
 
   
 \bibitem{Article}
-  S. Regot, J. Macia,N. Conde, K. Furukawa,J Kjellén, T. Peeters, S. Hohmann, E. de Nadal, F. Posas, R. Solé (2011),
-  Distributed biological computation with multicellular engineered networks,
-  \emph{Nature}, Vol. 69(7329), pp. 207-211
+  Morten Hjorth-Jensen,
+  Computational Physics,
+  August 2015
   
 \end{thebibliography}
 \end{flushleft}
