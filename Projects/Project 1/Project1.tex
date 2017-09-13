@@ -288,7 +288,7 @@ Updating the Guassian elimination formulas with this special case, yields the fo
 \end{equation}
 which can be further simplified to:
 \begin{equation}
-\tilde{a}_{i}=\frac{i}{i+1}
+\tilde{a}_{i}=\frac{i+1}{i}
 \label{eq:a_i}
 \end{equation}
 \begin{equation}
@@ -344,14 +344,30 @@ A Python-program for the general solver was made, and the second derivative for 
 
 \begin{table}[]
 \centering
-\caption{My caption}
-\label{tab:general}
-\begin{tabular}{|l|l|l|l|l|}
+\caption{Computation time for the different algorithms and grid points.}
+\label{tab:seconds}
+\begin{tabular}{|l|l|l|l|}
 \hline
-n    & General & Special & LU &  \\ \hline
-10   &         &         &    &  \\ \hline
-100  &         &         &    &  \\ \hline
-1000 &         &         &    &  \\ \hline
+n    & General [s]& Special [s]& LU [s]  \\ \hline
+$10^{1}$   & 0.000033        & 0.000029        &      \\ \hline
+$10^{2}$  & 0.000382        &  0.000210       &      \\ \hline
+$10^{3}$ & 0.004647       &  0.001499       &      \\ \hline
+$10^{4}$ & 0.036191       &  0.018247       &      \\ \hline
+$10^{5}$ & 0.298454       & 0.148838        &      \\ \hline
+$10^{6}$ & 2.787917       & 1.408053        &      \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{The maximum errors for the different algorithm and grid points.}
+\label{tab:error}
+\begin{tabular}{|l|l|l|l|}
+\hline
+n    & General & Special & LU   \\ \hline
+$10^{1}$  & 0.616569        & 0.258242        &      \\ \hline
+$10^{2}$  & 0.060437        &  0.015616       &      \\ \hline
+$10^{3}$ & 0.006005        & 0.001955        &     \\ \hline
 \end{tabular}
 \end{table}
 

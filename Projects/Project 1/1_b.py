@@ -3,7 +3,7 @@ from matplotlib.pyplot import *
 import time
 
 # Step size
-n = 1000
+n = 100
 h = 1./(n+1)  
 
 
@@ -49,10 +49,9 @@ print("Computation time: %f s" %(t_diff))
 
 # Error computation
 u = 1-x*(1-exp(-10))-exp(-10*x)
-print(u)
-error = zeros(n-1)
+error = zeros(n+1)
 for i in range(1,n-1):
-	error[i] = abs((solution[i]-u[i]) / u[i])
+	error[i] = abs((ans[i]-u[i]) / u[i])
 max_error = abs(1-max(error))
 print("Maximum error: %f" %(max_error))
 
@@ -63,5 +62,5 @@ xlabel("x")
 ylabel("u(x)", rotation=0, position=(0,0.47))
 legend(["Numerical, n=%d" %(n), "Analytical"])
 title("Gen. alg. for solving lin. equations using Gaussian elimination")
-savefig('1b_1000.png')
+#savefig('1b_1000.png')
 show()
