@@ -72,19 +72,21 @@
 
 
 % Place your abstract within the special {sciabstract} environment.
-
+\begin{center}
+\par GitHub repository:
+\par \url{https://github.com/mikkello/FYS4150/}
+\end{center}
 \begin{center}
 {\large \textbf{Abstract}}
 \end{center}
 \begin{sciabstract}
-Insert  Abstract here
+A reliable and fast method for solving second degree differential equations numerically is needed as these problems often occur in physics and other sciences. In this project, a second degree differential equation was converted to a matrix equation to be solved numerically by Gaussian elimination and LU decomposition algorithms. The different algorithms was compared in terms of speed and relative error. It was found that a modified Gaussian elimination algorithm was the fastest, and that LU decomposition required to much computation time to be used for large matrices and small step sizes. It was also found that small step sizes can lead to loss of numerical precision.   
 \end{sciabstract}
 
-\par GitHub repository:
-\par \url{https://github.com/mikkello/FYS4150/}
+
 
 \section{Introduction}
-In this project, the goal is to find a numerical solution to a second degree differential equation. An example of such an equation is Poisson's equation in electromagnetism given by:
+In this project, the goal was to find a numerical solution to a second degree differential equation. An example of such an equation is Poisson's equation in electromagnetism given by:
 \begin{equation}
 \frac{d^{2} \phi}{dr^{2}}=-4 \pi r\rho (r)
 \end{equation}
@@ -131,7 +133,7 @@ with
                       \end{bmatrix}
                       \label{eq:tridiagm}
 \end{equation}
-being a tridiagonal  $n\times n$ matrix. The problem is now possible to solve by finding the vector $\mathbf{u}$. For small matrices, this can easily be done by multiplying both sides with the inverse of $\mathbf{A}$. For larger matrices, however, this procedures is very slow and a better method is needed. 
+being a tridiagonal  $n\times n$ matrix. The problem is now possible to solve by finding the vector $\mathbf{u}$. For small matrices, this can easily be done by multiplying both sides with the inverse of $\mathbf{A}$. For larger matrices, however, this procedure is slow and a better method is needed. 
 
 \subsubsection{Analytical solution}
 Analytical solutions exists for the Poisson equation problem, and it will be useful to compare this to the numerical results. 
@@ -265,21 +267,24 @@ This formula requires three floating point operations, yielding a total of $3(n-
 
 
 \subsubsection{Numerical implementation of the Gaussian elimination}
-
+This is a code snippet showing how the Gaussian elimination can be implemented in Python. 
 \lstset{language=Python}
 \lstset{frame=lines}
 \lstset{caption={Implementing the Gaussian elimination algorithms in Python}}
 \lstset{label={lst:code_direct}}
 \lstset{basicstyle=\footnotesize}
 \begin{lstlisting}
-from brg.datastructures import Mesh
- 
-mesh = Mesh.from_obj('faces.obj')
-mesh.draw()
+# Forward substitution
+	for i in range(n-1):  
+		a_t[i+1] -= (b[i]*c[i]) / a_t[i]
+		d[i+1] -= (b[i]*d[i]) / a_t[i]
+# Backwards substitution
+	for i in range(n-1,1,-1): 
+		d[i-1] -= (c[i-1]*d[i]) / a_t[i]
 \end{lstlisting}
 
 \subsubsection{Gaussian elimination of a tridiagonal matrix}
-The fact that the matrix (\ref{eq:tridiagm}) that will be used in this problem is a tridiagonal matrix with two of the diagonals being $-1$, can simplify our algorithms and save some FLOPS.
+The matrix (\ref{eq:tridiagm}) used in this problem is a tridiagonal matrix with two of the diagonals being $-1$, also calles a Toeplitz matrix. This will simplify the algorithms and save FLOPS.
 
 Updating the Guassian elimination formulas with this special case, yields the following new equations:
 
@@ -301,16 +306,20 @@ u_{i}=\frac{\tilde{d}_{i}+u_{i+1}}{\tilde{a}_{i}}
 The new set of equations will require $4(n-1)$ FLOPS, which is a great reduction in the required computation power. Equation (\ref{eq:a_i}) can be pre-calculated outside the algorithm and will therefore not add more FLOPS.
 
 \subsubsection{Numerical implementation of the special case}
+This is a code snippet showing how the Gaussian elimination for the special case can be implemented in Python. 
 \lstset{language=Python}
 \lstset{frame=lines}
 \lstset{caption={Implementing the Gaussian elimination algorithms in Python for the special case}}
-\lstset{label={lst:code_direct}}
+\lstset{label={lst:code_direct2}}
 \lstset{basicstyle=\footnotesize}
 \begin{lstlisting}
-from brg.datastructures import Mesh
- 
-mesh = Mesh.from_obj('faces.obj')
-mesh.draw()
+for i in range(1,n,1):
+		d_t[i] = d[i] + d_t[i-1] / a_t[i-1]
+        
+
+for i in range(n-2, 0, -1):
+		u[i] = (d_t[i]+u[i+1]) / a_t[i]
+return u
 \end{lstlisting}
 
 \subsection{LU-decomposition}
@@ -327,7 +336,7 @@ Then, \begin{equation}
 U\mathbf{u}=y
 \end{equation}
 can be solved to find $\mathbf{u}$. 
-
+	The drawback of using LU decomposition to solve matrix equations numerically, is the fact that the algorithm requires $n^{3}$ FLOPS, which is $n^{2}$ times more than for Guassian elimination. 
 \section{Method and results}
 \subsection{Plot of the analytical solution}
 The analytical solution was plotted to get a feeling of what the numerical solution would look like. It can be seen in figure (\ref{fig:analytical}).
@@ -338,9 +347,9 @@ The analytical solution was plotted to get a feeling of what the numerical solut
 \includegraphics[]{analytical.png}
 \end{figure}
 
-\subsection{Implementation of general solver}
-A Python-program for the general solver was made, and the second derivative for $f(x)=100e^{-10x}$ was calculated and compared with the analytical results for $n = 10, 100, 1000$. The calculation times were calculated and can be found in table (\ref{tab:general}).
-
+\subsection{Implementation of general and special solver}
+A Python-program for the two solvers were made (1\textunderscore b.py and 1\textunderscore c.py), and the second derivative for $f(x)=100e^{-10x}$ was calculated and compared with the analytical results for $n = 10^{1}, 10^{2}, ..., 10^{6}$. The computation time and maximum error for the different step sizes and algorithms were also calculated, and these can be found in table (\ref{tab:seconds}) and table (\ref{tab:error})
+	The solution from the general algorithm was plotted as a function of x for n = 10 and n = 1000 and compared to the analytical solution. The plots can be seen in figure (\ref{fig:10}) and figure (\ref{fig:1000}). 
 
 \begin{table}[]
 \centering
@@ -349,37 +358,60 @@ A Python-program for the general solver was made, and the second derivative for 
 \begin{tabular}{|l|l|l|l|}
 \hline
 n    & General [s]& Special [s]& LU [s]  \\ \hline
-$10^{1}$   & 0.000033        & 0.000029        &      \\ \hline
-$10^{2}$  & 0.000382        &  0.000210       &      \\ \hline
-$10^{3}$ & 0.004647       &  0.001499       &      \\ \hline
-$10^{4}$ & 0.036191       &  0.018247       &      \\ \hline
-$10^{5}$ & 0.298454       & 0.148838        &      \\ \hline
-$10^{6}$ & 2.787917       & 1.408053        &      \\ \hline
+$10^{1}$   & 0.000033        & 0.000029        &  0.000181    \\ \hline
+$10^{2}$  & 0.000382        &  0.000210       &  0.000419    \\ \hline
+$10^{3}$ & 0.004647       &  0.001499       &  0.033709    \\ \hline
+$10^{4}$ & 0.036191       &  0.018247       & 11.567454      \\ \hline
+$10^{5}$ & 0.298454       & 0.148838        &  N/A     \\ \hline
+$10^{6}$ & 2.787917       & 1.408053        &  N/A    \\ \hline
 \end{tabular}
 \end{table}
 
 \begin{table}[]
 \centering
-\caption{The maximum errors for the different algorithm and grid points.}
+\caption{The maximum errors for the different algorithms and grid points.}
 \label{tab:error}
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|l|l|}
 \hline
-n    & General & Special & LU   \\ \hline
-$10^{1}$  & 0.616569        & 0.258242        &      \\ \hline
-$10^{2}$  & 0.060437        &  0.015616       &      \\ \hline
-$10^{3}$ & 0.006005        & 0.001955        &     \\ \hline
+n    & General & Special   \\ \hline
+$10^{1}$  & 0.616569        & 0.258242              \\ \hline
+$10^{2}$  & 0.060437        &  0.015616            \\ \hline
+$10^{3}$ & 0.006005        & 0.001955           \\ \hline
 \end{tabular}
 \end{table}
 
-\section{Discussion and conclusion}
+\begin{figure}
+\caption{Comparing the general algorithm to the analytical solution for n=10. The maximum error for this step size is quite large.}
+\label{fig:10}
+\includegraphics[]{1b_10.png}
+\end{figure}
+
+\begin{figure}
+\caption{Comparing the general algorithm to the analytical solution for n=1000. The numerical solution is now close to the analytical.}
+\label{fig:1000}
+\includegraphics[]{1b_1000.png}
+\end{figure}
 
 
+\subsection{LU decomposition}
+The matrix equation was also solved using LU decomposition to compare the computation time for this method to Gaussian elimination. This can also be seen in table (\ref{tab:seconds}).
+\subsection{Relative error}
+The maximum error as a function of the step size was plotted to see how accurate the approximation from the general Gaussian algorithm were compared to the analytical solution. The plot can be seen in figure (\ref{fig:error}).
+\begin{figure}
+\caption{The maximum error as a function of step size for the general algorithm. A linear relationship can be seen. }
+\label{fig:error}
+\includegraphics[]{h_epsilon.png}
+\end{figure}
+\section{Discussion}
+\subsection{Computation time}
+The special algorithm was expected to be the fastest algorithm because of the lower amount of FLOPS needed to run the algorithm. The general algorithm was expected to be a bit slower, and the LU decomposition was expected to be much slower. It was also expected that the computation time would increase quite linearly with n. This trend was confirmed as seen in table (\ref{tab:seconds}).
 
+\subsection{Errors}
+The maximum error was expected do decrease quite fast with increasing n. As seen in figure (\ref{fig:10}), a low n gave a large deviation from the analytical solution. Increasing n to just 1000 (figure (\ref{fig:1000})), gave a much smaller deviation.
+	The plot in figure (\ref{fig:error}) shows a linear relationship between the step size and the maximum error, but at $n = 10^{7}$, the linearity is broken. This is most likely due to truncation error because the computer only can store a finite amount of digits. 
 
-
-
-
-
+\section{Conclusion}
+In this project, it was shown that a tridiagonal matrix could be solved by a simple algorithm using Gaussian elimination. It was found that this could save computation time compared to standard LU decomposition. In addition, it was shown that one could get a loss of numerical precision due to small step sizes. 
 
 
 

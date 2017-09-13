@@ -3,7 +3,7 @@ from matplotlib.pyplot import *
 import time
 
 #Step size
-n = 1000000
+n = 1000
 h = 1./(n+1)
 
 
@@ -63,5 +63,5 @@ xlabel("x")
 ylabel("u(x)", rotation=0, position=(0,0.47))
 legend(["Numerical, n=%d" %(n), "Analytical"])
 title("Special alg. for solving lin. equations using Gaussian elimination")
-#savefig('1c_1000.png')
+savefig('1c_1000.png')
 show()

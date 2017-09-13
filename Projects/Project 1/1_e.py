@@ -2,7 +2,7 @@ import numpy as np
 import time
 import scipy.linalg
 
-n = 1000
+n = 100000
 h = 1./(n)
 
 # Filling diagonal vectors
@@ -38,6 +38,5 @@ t_diff = t_stop-t_start
 print("Grid points: n = %d" %(n))
 print("Computation time: %f s" %(t_diff))
 
-print(t_diff)
 
 plot(x, ans,'b', x, u_ex, 'r')
