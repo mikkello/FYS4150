@@ -1,6 +1,6 @@
 //Eigenvalue solver - Jacobi's algorithm.
 //In this project, eigenvalues and eigenvectors for electrons trapped in harmonic oscilltor potentials are found.
-//The progject is part of FYS4150 - Computational Physics @ UiO.
+//The project is part of FYS4150 - Computational Physics @ UiO.
 //The coded algorithm is inspiried by the lecture notes of Morten Hjorth-Jensen
 //Mikkel Christensen - October 2017.
 
