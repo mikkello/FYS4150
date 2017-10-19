@@ -25,11 +25,12 @@ int main()
 	int numTimesteps = Years*Steps_Year;
 	int num_planets = find_solver(dt, numTimesteps);
 
-	// Saving variable to file
+	//Saving variable to file
 	ofstream variables;
-	variables.open("variables.txt");
+	variables.open("variables1.txt");
 	variables << setiosflags(ios::showpoint | ios::uppercase);
-	variables << setprecision(10) << setw(20) << numTimesteps << " " << num_planets << endl;
+	variables << "N_timesteps" << " " << "N_planets" << " " << "N_years" << " " << "dt" << endl;
+	variables << setprecision(10) << setw(20) << numTimesteps << " " << num_planets <<  " " << Years << " " <<  dt << endl;
 	variables.close();
 
 	// Stop timing
@@ -38,8 +39,8 @@ int main()
 	
 	cout << "Orbit calculation done." << endl;
 	cout << "CPU time:" << time / CLOCKS_PER_SEC << " s." << endl;
-	cout << "Positions written to file positions.xyz." << endl;
-	cout << "Positions written to file variables.txt." << endl;
+	//cout << "Positions written to file" << d << endl;
+	//cout << "Positions written to file variables.txt." << endl;
 	
 
 	return 0;
