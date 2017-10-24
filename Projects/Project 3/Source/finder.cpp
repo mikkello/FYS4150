@@ -31,9 +31,12 @@ int find_solver(double dt, int numTimesteps) {
 	if (integer == 1) {
 		cout << "You have choosen Euler Forward for the Earth-Sun system." << endl;
 		cout << "Calculating orbits..." << endl;
+		
+
 		solarSystem.createCelestialBody(vec3(0, 0, 0), vec3(0, 0, 0), 1.0);
-		solarSystem.createCelestialBody(vec3(9.890331046925951E-01, 1.768079890757788E-01, -1.738715302893284E-04), 
-vec3(-3.268395786841218E-03, 1.689265025904021E-02, -9.889230545039174E-07)*AUday_to_AUyear, 5.97219e24*kgtosolarmass);
+		solarSystem.createCelestialBody(vec3(1, 0, 0), vec3(0, 2 * M_PI, 0), 5.97219e24*kgtosolarmass);
+		//solarSystem.createCelestialBody(vec3(9.890331046925951E-01, 1.768079890757788E-01, -1.738715302893284E-04), 
+//vec3(-3.268395786841218E-03, 1.689265025904021E-02, -9.889230545039174E-07)*AUday_to_AUyear, 5.97219e24*kgtosolarmass);
 
 		Euler solvers(dt);
 		solarSystem.writeToFile("positions1.xyz");
@@ -43,15 +46,17 @@ vec3(-3.268395786841218E-03, 1.689265025904021E-02, -9.889230545039174E-07)*AUda
 			solarSystem.writeToFile("positions1.xyz");
 		}
 		
+		
 	}
 
 	else if (integer == 2) {
-		cout << "You have choosen Euler Forward for the Earth-Sun system." << endl;
+		cout << "You have choosen Velocity Verlet for the Earth-Sun system." << endl;
 		cout << "Calculating orbits..." << endl;
 
 		solarSystem.createCelestialBody(vec3(0, 0, 0), vec3(0, 0, 0), 1.0);
-		solarSystem.createCelestialBody(vec3(9.890331046925951E-01, 1.768079890757788E-01, -1.738715302893284E-04), 
-vec3(-3.268395786841218E-03, 1.689265025904021E-02, -9.889230545039174E-07)*AUday_to_AUyear, 5.97219e24*kgtosolarmass);
+		solarSystem.createCelestialBody(vec3(1, 0, 0), vec3(0, 2 * M_PI, 0), 5.97219e24*kgtosolarmass);
+		//solarSystem.createCelestialBody(vec3(9.890331046925951E-01, 1.768079890757788E-01, -1.738715302893284E-04), 
+//vec3(-3.268395786841218E-03, 1.689265025904021E-02, -9.889230545039174E-07)*AUday_to_AUyear, 5.97219e24*kgtosolarmass);
 
 		Verlet solvers(dt);
 		solarSystem.writeToFile("positions2.xyz");
@@ -60,7 +65,7 @@ vec3(-3.268395786841218E-03, 1.689265025904021E-02, -9.889230545039174E-07)*AUda
 			solvers.VelocityVerlet(solarSystem);
 			solarSystem.writeToFile("positions2.xyz");
 		}
-
+		
 	}
 
 	else if (integer == 3) {

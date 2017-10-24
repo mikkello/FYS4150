@@ -18,7 +18,6 @@ public:
 
     void createCelestialBody(vec3 position, vec3 velocity, double mass);
     void calculateForcesAndEnergy();
-	void calculateForcesOnePlanet(int planet_number);
 	void SolarSystem::AccEarthOnly(int planet_number);
 	vec3 SolarSystem::angularMomentum() const;
 	int numberOfBodies() const;

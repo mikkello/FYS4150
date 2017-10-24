@@ -19,11 +19,13 @@ int main()
 	clock_t start, finish;
 	start = clock();
 
+
 	int Steps_Year = Finder_Steps_Year();
 	int Years = Finder_Years();
 	double dt = 1.0 / float(Steps_Year);
 	int numTimesteps = Years*Steps_Year;
 	int num_planets = find_solver(dt, numTimesteps);
+	
 
 	//Saving variable to file
 	ofstream variables;

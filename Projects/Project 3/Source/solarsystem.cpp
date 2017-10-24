@@ -41,34 +41,12 @@ void SolarSystem::calculateForcesAndEnergy()
 		m_angularMomentum += body1.mass*body1.position.cross(body1.velocity);
 		m_kineticEnergy += 0.5*body1.mass*body1.velocity.lengthSquared();
 	}
-	// Uncomment these lines for a stationary star
+// Stationary Sun
 	vec3 force_sun = vec3(0, 0, 0);
 	m_bodies[0].force = force_sun;
 }
 
-void SolarSystem::calculateForcesOnePlanet(int planet_number)
-{
-	m_bodies[planet_number].force.zeros();
-	int numbodies = numberOfBodies();
-	for (int i = 0; i < numbodies; i++) {
-		CelestialBody &body2 = m_bodies[i];
-		if (m_bodies[planet_number].mass == body2.mass) {
-			continue;
-		}
-		else {
-			double dx = m_bodies[planet_number].position[0] - body2.position[0];
-			double dy = m_bodies[planet_number].position[1] - body2.position[1];
-			double dz = m_bodies[planet_number].position[2] - body2.position[2];
-			double dr2 = dx*dx + dy*dy + dz*dz;
-			double dr = sqrt(dr2);
-			double force = -G*m_bodies[planet_number].mass*body2.mass / (dr*dr*dr);
 
-			m_bodies[planet_number].force[0] += force*dx;
-			m_bodies[planet_number].force[1] += force*dy;
-			m_bodies[planet_number].force[2] += force*dz;
-		}
-	}
-}
 
 void SolarSystem::AccEarthOnly(int planet_number)
 {
@@ -123,7 +101,7 @@ void SolarSystem::writeToFile(string filename)
 	
 	//m_file << numberOfBodies() << endl;
 	for (CelestialBody &body : m_bodies) {
-		m_file << setprecision(15) << body.position.x() << " " << body.position.y() << " " << body.position.z() << "\n";
+		m_file << setprecision(15) << body.position.x() << " " << body.position.y() << " " << body.position.z() << " " << totalE() << " " << angularMomentum() << "\n";
 	}
 }
 
