@@ -8,6 +8,7 @@ public:
 	double m_dt;
 	Verlet(double dt);
 	void VelocityVerlet(class SolarSystem &system);
+	void Mercury_VelocityVerlet(SolarSystem &system);
 };
 
 #endif // EULER_H

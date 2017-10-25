@@ -33,7 +33,7 @@ void SolarSystem::calculateForcesAndEnergy()
 			CelestialBody &body2 = m_bodies[j];
 			vec3 deltaRVector = body1.position - body2.position;
 			double dr = deltaRVector.length();
-			vec3 force = -G*body1.mass*body2.mass / (dr*dr*dr)*deltaRVector;
+			vec3 force = -G*body1.mass*body2.mass* deltaRVector / pow(dr, 3);
 			body1.force += force;
 			body2.force -= force;
 			m_potentialEnergy += G*body1.mass*body2.mass / dr;
@@ -41,27 +41,31 @@ void SolarSystem::calculateForcesAndEnergy()
 		m_angularMomentum += body1.mass*body1.position.cross(body1.velocity);
 		m_kineticEnergy += 0.5*body1.mass*body1.velocity.lengthSquared();
 	}
-// Stationary Sun
-	vec3 force_sun = vec3(0, 0, 0);
-	m_bodies[0].force = force_sun;
+ // Stationary Sun
+	//vec3 force_sun = vec3(0, 0, 0);
+	//m_bodies[0].force = force_sun;
 }
 
+void SolarSystem::calculateForces_GR() {
 
+	for (CelestialBody &body : m_bodies) {
+		body.force.zeros();
+	}
 
-void SolarSystem::AccEarthOnly(int planet_number)
-{
-	m_kineticEnergy = 0;
-	m_potentialEnergy = 0;
-	m_angularMomentum.zeros();
-
-	double v = m_bodies[planet_number].velocity.length();
-	double r = m_bodies[planet_number].position.length();
-
-	m_bodies[planet_number].force = -v*v / (r*r)*m_bodies[planet_number].position;
-
-	m_kineticEnergy = 0.5*m_bodies[planet_number].mass*m_bodies[planet_number].velocity.lengthSquared();
-	m_potentialEnergy = G*m_bodies[planet_number].mass / m_bodies[planet_number].position.length();
-	m_angularMomentum = m_bodies[planet_number].mass*m_bodies[planet_number].position.cross(m_bodies[planet_number].velocity);
+	for (int i = 0; i<numberOfBodies(); i++) {
+		CelestialBody &body1 = m_bodies[i];
+		for (int j = i + 1; j<numberOfBodies(); j++) {
+			CelestialBody &body2 = m_bodies[j];
+			vec3 deltaRVector = body1.position - body2.position;
+			double dr = deltaRVector.length();
+			vec3 l_vec = body1.position.cross(body1.velocity);
+			double l = l_vec.length();
+			double c = 63239.726;
+			vec3 force = -G*body1.mass / (dr*dr*dr)*deltaRVector*(1 + 3 * l * l / (dr*dr*c*c));
+			body1.force += force;
+			body2.force -= force;
+		}
+	}
 }
 
 int SolarSystem::numberOfBodies() const
@@ -99,9 +103,10 @@ void SolarSystem::writeToFile(string filename)
 		}
 	}
 	
-	//m_file << numberOfBodies() << endl;
+	// Writes position of bodies, energies and angular momentum to file positionsx.xyz
 	for (CelestialBody &body : m_bodies) {
-		m_file << setprecision(15) << body.position.x() << " " << body.position.y() << " " << body.position.z() << " " << totalE() << " " << angularMomentum() << "\n";
+		m_file << setprecision(15) << body.position.x() << " " << body.position.y() << " " << body.position.z() << "\n"
+//<< " " << totalE() << " " << potentialE() << " " << kineticE() << " " << angularMomentum()[2] << "\n";
 	}
 }
 

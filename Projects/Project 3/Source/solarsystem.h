@@ -18,7 +18,7 @@ public:
 
     void createCelestialBody(vec3 position, vec3 velocity, double mass);
     void calculateForcesAndEnergy();
-	void SolarSystem::AccEarthOnly(int planet_number);
+	void SolarSystem::calculateForces_GR();
 	vec3 SolarSystem::angularMomentum() const;
 	int numberOfBodies() const;
 	double G = 4 * M_PI*M_PI;

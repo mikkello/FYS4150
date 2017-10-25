@@ -15,11 +15,7 @@ using namespace std;
 
 int main()
 {
-	// Timing
-	clock_t start, finish;
-	start = clock();
-
-
+	
 	int Steps_Year = Finder_Steps_Year();
 	int Years = Finder_Years();
 	double dt = 1.0 / float(Steps_Year);
@@ -35,14 +31,6 @@ int main()
 	variables << setprecision(10) << setw(20) << numTimesteps << " " << num_planets <<  " " << Years << " " <<  dt << endl;
 	variables.close();
 
-	// Stop timing
-	finish = clock();
-	double time = (finish - start);
-	
-	cout << "Orbit calculation done." << endl;
-	cout << "CPU time:" << time / CLOCKS_PER_SEC << " s." << endl;
-	//cout << "Positions written to file" << d << endl;
-	//cout << "Positions written to file variables.txt." << endl;
 	
 
 	return 0;
