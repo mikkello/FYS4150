@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 #########################
 ## Importing variables ##
-infile = open("Variables_4_dt_0.000100.txt", "r")
+infile = open("Variables_2_dt_0.000100.txt", "r")
 infile.readline()
 line = infile.readline()
 variables = line.split()
@@ -77,7 +77,7 @@ plt.savefig('escape_velocity_dt_%s.png'%(dt))
 ################################################
 ## Importing data from Velocity Verlet solver ##
 
-infile = open("Positions_4_mX1_dt_0.000100.xyz", "r")
+infile = open("Positions_2_dt_0.000100_B4.xyz", "r")
 x2 = np.zeros((N_planets, N_steps))
 y2 = np.zeros((N_planets, N_steps))
 z2 = np.zeros((N_planets, N_steps))
@@ -161,12 +161,12 @@ plt.title('Conservation of angular momentum for the Euler and Velocity Verlet me
 
 #####################################################################################################
 ## Plotting the calculated orbits for the Sun-Earth system using Euler and Velocity Verlet methods ##
-"""
+
 if N_planets == 2:
     plt.figure(num=None, figsize=(12, 10), dpi=120, facecolor='w', edgecolor='k')
     plt.rcParams.update({'font.size': 16})
     #plt.plot(x[1], y[1], 'b', label='Earth (FE)')
-    plt.plot(x[0], y[0],'ro', label='Sun')
+    plt.plot(x2[0], y2[0],'ro', label='Sun')
     plt.plot(x2[1], y2[1], 'g', label='Earth (VV)')
     plt.xlabel('x [AU]')
     plt.ylabel('y [AU]')
@@ -175,6 +175,7 @@ if N_planets == 2:
     plt.savefig('test3.png')
     #plt.savefig('earth_sun_dt_%s.png'%(dt))
     plt.show()
+
 """
 if N_planets == 3:
     plt.figure(num=None, figsize=(12, 10), dpi=120, facecolor='w', edgecolor='k')
@@ -188,4 +189,4 @@ if N_planets == 3:
     plt.title('Earth-Jupiter-Sun system (dt = %s)' %(dt) )
     #plt.savefig('test3.png')
     plt.savefig('earth_jupiter_notfixed_dt_%s.png'%(dt))
-    plt.show()
+    plt.show()"""
