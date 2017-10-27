@@ -43,6 +43,7 @@ int find_solver(double dt, int numTimesteps) {
 		
 		solarSystem.createCelestialBody(vec3(0, 0, 0), vec3(0, 0, 0), 1.0); // Sun
 		solarSystem.createCelestialBody(vec3(1, 0, 0), vec3(0, 2 * M_PI, 0), 3e-6); // Earth, circular orbit
+		
 		start = clock();
 		Euler solvers(dt);
 		solarSystem.writeToFile("Positions_" + std::to_string(integer) + "_dt_" + std::to_string(dt) + ".xyz");
@@ -61,6 +62,7 @@ int find_solver(double dt, int numTimesteps) {
 
 		solarSystem.createCelestialBody(vec3(0, 0, 0), vec3(0, 0, 0), 1.0); // Sun
 		solarSystem.createCelestialBody(vec3(1, 0, 0), vec3(0, 2 * M_PI, 0), 3e-6); // Earth, circular orbit
+		
 		start = clock();
 		Verlet solvers(dt);
 		solarSystem.writeToFile("Positions_" + std::to_string(integer) + "_dt_" + std::to_string(dt) + ".xyz");
@@ -69,17 +71,17 @@ int find_solver(double dt, int numTimesteps) {
 			solvers.VelocityVerlet(solarSystem);
 			solarSystem.writeToFile("Positions_" + std::to_string(integer) + "_dt_" + std::to_string(dt) + ".xyz");
 		}
-		
 	}
 
 	else if (integer == 3) {
 		cout << "You have chosen Velocity Verlet for Earth's escape velocity calculation (" << integer << ")." << endl;
 		cout << "Calculating orbits..." << endl;
 
-		double k = 1.41; // v0 = k * 2 * pi // Initial velocity
+		double k = 1.41; // v0 = k * 2 * pi // Initial velocity constant
 
 		solarSystem.createCelestialBody(vec3(0, 0, 0), vec3(0, 0, 0), 1.0); // Sun
 		solarSystem.createCelestialBody(vec3(1, 0, 0), vec3(0, 2 * k * M_PI, 0), 3e-6); // Earth, escaping
+
 		start = clock();
 		Verlet solvers(dt);
 		solarSystem.writeToFile("Positions_" + std::to_string(integer) + "_k_" + std::to_string(k) + "_dt_" + std::to_string(dt) + ".xyz");
@@ -88,7 +90,6 @@ int find_solver(double dt, int numTimesteps) {
 			solvers.VelocityVerlet(solarSystem);
 			solarSystem.writeToFile("Positions_" + std::to_string(integer) + "_k_" + std::to_string(k) + "_dt_" + std::to_string(dt) + ".xyz");
 		}
-
 	}
 
 	else if (integer == 4) {
@@ -99,6 +100,7 @@ int find_solver(double dt, int numTimesteps) {
 		solarSystem.createCelestialBody(vec3(0, 0, 0), vec3(0, 0, 0), 1.0); // Sun
 		solarSystem.createCelestialBody(vec3(1, 0, 0), vec3(0, 2 * M_PI, 0), 3e-6); // Earth 
 		solarSystem.createCelestialBody(vec3(5.20, 0.0, 0.0), vec3(0.0, 0.87*M_PI, 0.0), jupiter_mass_const * 0.95e-3); // Jupiter
+		
 		start = clock();
 		Verlet solvers(dt);
 		solarSystem.writeToFile("Positions_" + std::to_string(integer) + "_mX" + std::to_string(jupiter_mass_const) + "_dt_" + std::to_string(dt) + ".xyz");
@@ -123,22 +125,18 @@ int find_solver(double dt, int numTimesteps) {
 		solarSystem.createCelestialBody(vec3(2.392368478680558E-01, -6.847999876013139E-01, -2.319637912277905E-02),
 		                                     vec3(1.899757861343120E-02,  6.491099711740283E-03, -1.007444652406855E-03)*AUday_to_AUyear,
 		                                     2.45e-6);
-
 		// Earth
 		solarSystem.createCelestialBody(vec3(9.152108693600010E-01,  4.058839764119083E-01, -1.771902422530673E-04),
 		                                    vec3(-7.226100108439347E-03,  1.567554554659565E-02, -1.035367359990257E-07)*AUday_to_AUyear,
 		                                     3e-6);
-
 		// Mars
 		solarSystem.createCelestialBody(vec3(1.178122338122247E+00, -7.242078750401497E-01, -4.423390202799733E-02),
 		                                     vec3(7.899668162477799E-03,  1.310156103432712E-02,  8.052516290965436E-05)*AUday_to_AUyear,
 		                                     3.3e-7);
-
 		// Jupiter
 		solarSystem.createCelestialBody(vec3(-5.427455884765774E+00, -4.678991629217762E-01,  1.233233582953724E-01),
 		                                    vec3(5.597320182818523E-04, -7.162261501832823E-03,  1.717650487472710E-05)*AUday_to_AUyear,
 		                                    9.95e-4);
-
 		// Saturn
 		solarSystem.createCelestialBody(vec3(-2.256792396133917E+00, -9.777367032001933E+00,  2.598201193469362E-01),
 		                                     vec3(5.130301737533382E-03, -1.272889194718095E-03, -1.817149598022347E-04)*AUday_to_AUyear,
@@ -194,7 +192,7 @@ int find_solver(double dt, int numTimesteps) {
 			if ((pos_min1 < pos_min2) && (pos_min1 < pos)) {
 				double tanTheta = periPos[1] / periPos[0];
 				double theta = atan(tanTheta);
-				double arcsec = (theta * 3600 * 180) / M_PI;
+				double arcsec = (theta * 3600 * 180) / M_PI; // Converting radians to arcseconds
 
 				Outfile << arcsec << " " << (time - dt) << endl;
 			}
@@ -239,7 +237,7 @@ int find_solver(double dt, int numTimesteps) {
 
 				double tanTheta = periPos[1] / periPos[0];
 				double theta = atan(tanTheta);
-				double arcsec = (theta * 3600 * 180) / M_PI;
+				double arcsec = (theta * 3600 * 180) / M_PI; // Converting radians to arcseconds
 
 				Outfile << arcsec << " " << (time - dt) << endl;
 			}
@@ -271,6 +269,7 @@ int Finder_Steps_Year() {
 	cin >> Steps_Year;
 	return Steps_Year;
 }
+
 int Finder_Years() {
 	// Finds years for the calculations
 	int Years;
@@ -279,6 +278,7 @@ int Finder_Years() {
 	cout << " " << endl;
 	return Years;
 }
+
 int Problem_Chosen() {
 	// Returns the number according to which problem that is chosen to solve. 
 	return integer;

@@ -16,6 +16,7 @@ void SolarSystem::createCelestialBody(vec3 position, vec3 velocity, double mass)
     m_bodies.push_back( CelestialBody(position, velocity, mass) );
 }
 
+// Newtonian gravitational force calculation
 void SolarSystem::calculateForcesAndEnergy()
 {
 	m_kineticEnergy = 0; m_potentialEnergy = 0; m_angularMomentum.zeros();
@@ -38,13 +39,13 @@ void SolarSystem::calculateForcesAndEnergy()
 		m_kineticEnergy += 0.5*body1.mass*body1.velocity.lengthSquared();
 	}
     // Remove comment to make the Sun stationary
-	vec3 force_sun = vec3(0, 0, 0);
-    m_bodies[0].force = force_sun;
+	// vec3 force_sun = vec3(0, 0, 0);
+    // m_bodies[0].force = force_sun;
 }
 
 
 
-
+// Relativistic correction to gravitational force
 void SolarSystem::calculateRelativisticForcesAndEnergy()
 {
 	m_kineticEnergy = 0;
@@ -67,6 +68,10 @@ void SolarSystem::calculateRelativisticForcesAndEnergy()
 	m_angularMomentum = body1.position.cross(body1.momentum) + body2.position.cross(body2.momentum);
 	m_potentialEnergy = -G*body1.mass*body2.mass / dr;
 	m_kineticEnergy = 0.5*body1.mass*body1.velocity.lengthSquared() + 0.5*body2.mass*body2.velocity.lengthSquared();
+
+	// Stationary Sun
+	vec3 force_sun = vec3(0, 0, 0);
+	m_bodies[0].force = force_sun;
 }
 
 
@@ -111,8 +116,6 @@ void SolarSystem::writeToFile(string filename)
 		m_file << setprecision(15) << body.position.x() << " " << body.position.y() << " " << body.position.z() << " " << totalE() << " " << potentialE() << " " << kineticE() << " " << angularMomentum()[2] << "\n";
 	}
 }
-
-
 
 
 std::vector<CelestialBody> &SolarSystem::bodies()

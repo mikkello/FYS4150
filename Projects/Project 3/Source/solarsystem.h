@@ -19,7 +19,6 @@ public:
 
     void createCelestialBody(vec3 position, vec3 velocity, double mass);
     void calculateForcesAndEnergy();
-	void SolarSystem::relativistic_calculateForcesAndEnergy();
 	void SolarSystem::calculateRelativisticForcesAndEnergy();
 	vec3 SolarSystem::angularMomentum() const;
 	int numberOfBodies() const;

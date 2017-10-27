@@ -90,7 +90,7 @@
 {\large \textbf{Abstract}}
 \end{center}
 \begin{sciabstract}
-In the 1600's, Isaac Newton developed the formulas for calculating gravitational forces between bodies in the Solar System. The formulas produce a set of coupled ordinary differential equations which can be solved numerically to simulate the orbits of the planets around the Sun. To do this accurately, one has to rely on accurate and fast algorithms. In this project, the Forward Euler and Velocity Verlet algorithms was compared by solving the mentioned set of differential equations for various Solar System scenarios. First, both algorithms were used on the Earth-Sun system with different step sizes. The Velocity Verlet algorithm was found to be superior to the Forward Euler. Even though the Forward Euler was slightly faster, it failed to produce stable orbits even at very small step sizes. The Velociy Verlet produced stable orbits with step sizes up to 0.01, and was used for the rest of the calculations.  After this, Jupiter was included in the system to find the effect of a large body on the Sun's and Earth's orbits. The mass of Jupiter was also increased to more clearly see the effect. Jupiter was found to indirectly influence Earth's orbit by slightly changing the position of the Sun. Then, all the other planets were added to the simulation. Even with a large step size and all planets included, the algorithm again succeeded in producing stable orbits. Lastly, a relativistic correction was added to the gravitational force to match Mercury's perihelion movement to observed data. The calculated angular velocity matched the theoretical and observed value. 
+In the 1600's, Isaac Newton developed the formulas for calculating gravitational forces between bodies in the Solar System. The formulas produce a set of coupled ordinary differential equations which can be solved numerically to simulate the orbits of the planets around the Sun. To do this, one has to rely on having accurate and fast algorithms. In this project, the Forward Euler and Velocity Verlet algorithms was compared by solving the mentioned set of differential equations for various Solar System scenarios. First, both algorithms were used on the Earth-Sun system with different step sizes. The Velocity Verlet algorithm was found to be superior to the Forward Euler. Even though the Forward Euler was slightly faster, it failed to produce stable orbits even at very small step sizes. The Velociy Verlet produced stable orbits with step sizes up to 0.01, and was thus used for the rest of the calculations.  After this, Jupiter was included in the system to find the effect of a large body on the Sun's and Earth's orbits. The mass of Jupiter was also increased to more clearly see the effect. Jupiter was found to indirectly influence Earth's orbit by slightly changing the position of the Sun. Then, all the other planets were added to the simulation. Even with a large step size and all planets included, the algorithm again succeeded in producing stable orbits. Lastly, a relativistic correction was added to the gravitational force to match Mercury's perihelion movement to observed data. The calculated angular velocity matched the theoretical and observed value. 
 \end{sciabstract}
 
 
@@ -107,7 +107,7 @@ First, the simulation will be done for the Earth-Sun system to compare the Verle
 First, the relevant Newtonian mechanics will be introduced. Then, the forward Euler and the velocity Verlet algorithm will be presented. The derivations are based on the lecture notes of Morten Hjort-Jensen [1]. The Newtonian mechanics and energy laws can be found in an ordinary University text book in classical mechanics like \cite{physics}. 
 \subsection{Physics of the solar system} 
 \subsubsection{Newtonian mechanics}
-In the 1600s, Sir Isaac Newton discovered that the acceleration of a body is proportional to the force acting on it. This is Newton's famous second law:
+In the 1600's, Sir Isaac Newton discovered that the acceleration of a body is proportional to the force acting on it. This is Newton's famous second law:
 \begin{equation}
 \label{eq:newt_2}
 \sum\mathbf{F} = m\mathbf{a}
@@ -134,12 +134,12 @@ The elliptical orbits of the planets around the sun can then be found by solving
 For the 9-body problem of the Solar System, this adds up to 54 equations with given initial velocities and positions at $t_0$ = 0. The sun is much heavier than the other planets, and it is therefore useful to sometimes ignore the forces the planets exert on the sun keeping its position fixed. 
 
 \subsubsection{Conservation of energy}
-The law of conservation of energy is another famous and important concept. This is important to take into account when doing numerical calculations on physical systems, as some methods will not conserve the energy of the system. This will actually be a problem in one of the two numerical algorithms presented in this project. 
+The law of conservation of energy is another famous and important concept in physics. This is important to take into account when doing numerical calculations on physical systems, as some methods will not conserve the energy of the system. This will actually be a problem in one of the two numerical algorithms presented in this project. 
 
 In this project, the planets in the solar system can have two forms of energy; kinetic energy, $K$, and potential energy, $U$. The total energy, $E$, of a system is always conserved, and is given by the following formula:
 \begin{equation}
 \label{eq:totalE}
-E = \sum_{i=0}^{N}\frac{1}{2}m_i v_i^2-\sum_{i=0}^{N}\sum_{j>i}^{N}G\frac{m_i}{m_j}/e,
+E = \sum_{i=0}^{N}\frac{1}{2}m_i v_i^2-\sum_{i=0}^{N}\sum_{j>i}^{N}G\frac{m_im_j}{r},
 \end{equation}
 where the first sum is the kinetic energy, and the second sum is the potential energy. 
 
@@ -149,7 +149,7 @@ Assuming circular motion and point masses, the total angular momentum, $\mathbf{
 \end{equation}
 
 \subsection{Escape velocity}
-The Solar System is a bound system meaning that the total energy is less than zero. Going above zero, the planets will escape from their orbits. The velocity needed to escape the orbit is called the escape velocity, and can be calculated. 
+The Solar System is a bound system meaning that the total energy of a planet is less than zero. Going above zero, the planets will escape from their orbits. The velocity needed to escape the orbit is called the escape velocity, and can be calculated. 
 
 Solving equation (\ref{eq:totalE}) for the Earth-Sun system when $E$ = 0 and the sun is at origin will yield:
 \begin{align*}
@@ -174,7 +174,7 @@ where $\mathbf{r}$ is the vector between the Sun and Mercury, $r$ is the length 
 The Sun has enough mass to have an observable effect on Mercury's orbit which is not accounted for by the Newtonian physics. The point in the orbit where a planet is closest to the sun is called the perihelion. To do a calculation of Mercury's perihelion over time, the corrected formula above has to be used to get data that matches observations. The observed angular velocity is about 43 arcseconds per century. 
 
 \subsubsection{Units and constants} 
-Because of the long time scale of the solar system, the base units in this project will be in $years$ [yr] for time,  $astronomical \ units$ [AU] for distance and $solar \ masses$ [$\mathrm{M_{sun}}$] for masses. From these, the energy unit [$\mathrm{M_{sun}AU^2/yr^2}$] and the unit [$\mathrm{M_{sun}AU^2/yr}$] for angular momentum can be derived. 
+Because of the long time scale of the solar system, the base units in this project will be in years [yr] for time,  astronomical units [AU] for distance and solar masses [$\mathrm{M_{Sun}}$] for masses. From these, the energy unit [$\mathrm{M_{sun}AU^2/yr^2}$] and the unit [$\mathrm{M_{sun}AU^2/yr}$] for angular momentum can be derived. 
 This is convenient because the distance between the Sun and the Earth is $r$ = 1 AU, the velocity of the Earth is $v\mathrm{ = 2\pi AU/yr}$, and the gravitational constant is $G\mathrm{ = 4\pi^2 AU^3/Myr^2}$.
 
 The initial conditions used is this program was obtained from NASA's website \cite{NASA}, and is shown in table (\ref{tab:NASAlist}). 
@@ -271,10 +271,10 @@ In table (\ref{tab:CPU-time}), the CPU time for the two algorithms can be seen. 
 
 \begin{center}
 \begin{table}[]
-\caption{Comparison of CPU time for the Forward Euler and Velocity Verlet algorithms. As expected, the Velocity Verlet use more CPU time. It will, however, converge towards the right number faster than the Forward Euler algorithm. } \label{tab:CPU-time}
+\caption{Comparison of CPU time for the Forward Euler and Velocity Verlet algorithms. As expected, the Velocity Verlet uses more CPU time. It will, however, converge towards the right number faster than the Forward Euler algorithm. } \label{tab:CPU-time}
 \begin{tabularx}{\textwidth}{@{}LLLL@{}} 
 \toprule
-Algorithm & CPU time Forward Euler & FLOPS & dt \\
+Algorithm & CPU time & FLOPS & dt \\
 \midrule
 Forward Euler & 60.396 s & 5N  & 0.00001           \\
 Velocity Verlet & 71.291 s & 9N & 0.00001 \\
@@ -287,35 +287,35 @@ Velocity Verlet & 71.291 s & 9N & 0.00001 \\
 
 
         \centering
-        \begin{subfigure}[ht]{0.430\textwidth}
+        \begin{subfigure}[]{0.430\textwidth}
             \centering
             \includegraphics[width=\textwidth]{earth_sun_dt_001.png}
                
             \label{fig:comparison_dt0.01}
         \end{subfigure}
                 \quad
-        \begin{subfigure}[ht]{0.430\textwidth}  
+        \begin{subfigure}[]{0.430\textwidth}  
             \centering 
             \includegraphics[width=\textwidth]{earth_sun_dt_0001.png}
                 
             \label{fig:comparison_dt0.001}
         \end{subfigure}
         \vskip\baselineskip
-        \begin{subfigure}[ht]{0.430\textwidth}   
+        \begin{subfigure}[]{0.430\textwidth}   
             \centering 
             \includegraphics[width=\textwidth]{earth_sun_dt_00001.png}
                 
             \label{fig:comparison_dt0.0001}
         \end{subfigure}
         \quad
-        \begin{subfigure}[ht]{0.430\textwidth}   
+        \begin{subfigure}[]{0.430\textwidth}   
             \centering 
             \includegraphics[width=\textwidth]{earth_sun_dt_1e-05.png}
               
             \label{fig:comparison_dt0.00001}
         \end{subfigure}
         \caption[]
-        {\small The figure shows calculations of the Earth's orbit around the sun using the Euler Forward and Velocity Verlet algorithms for different time steps. As seen in the figure, Earth's orbit is stable using Verlet for all time steps. The orbit calculated by Forward Euler is not at all stable at small time steps, but improves towards $dt$ = 1e-05. } 
+        {\small The figure shows calculations of the Earth's orbit around the sun using the Euler Forward and Velocity Verlet algorithms for different time steps. As seen in the figure, Earth's orbit is stable using Verlet for all time steps. The orbit calculated by Forward Euler is not at all stable at large time steps, but improves towards $dt$ = 1e-05. } 
         \label{fig:2bodycomparison}
     \end{figure}
     
@@ -330,14 +330,14 @@ In figure (\ref{fig:cons_ang}), the total angular momentum is plotted for both a
 \begin{figure}[]
 
         \centering
-        \begin{subfigure}[ht]{0.485\textwidth}
+        \begin{subfigure}[]{0.485\textwidth}
             \centering
             \includegraphics[width=\textwidth]{cons_E_dt_00001_f.png}
                
             \label{fig:E}
         \end{subfigure}
                 \quad
-        \begin{subfigure}[ht]{0.485\textwidth}  
+        \begin{subfigure}[]{0.485\textwidth}  
             \centering 
             \includegraphics[width=\textwidth]{cons_E_rel_dt_00001_f2_smallerfont.png}
                 
@@ -345,7 +345,7 @@ In figure (\ref{fig:cons_ang}), the total angular momentum is plotted for both a
         \end{subfigure}
         \vskip\baselineskip
         \caption[]
-        {\small The figure to the left shows the conservation of total energy, kinetic energy and relative energy for both the Forward Euler algorithm (top) and the Velocity Verlet algorithm (bottom). On the right, the  relative total energy for both algorithms are shown. Both figures indicates that the Forward Euler does not conserve energy, while the Velocity Verlet does. This one reason why the latter method is used throughout this project.} 
+        {\small The figure to the left shows the conservation of total energy, kinetic energy and potential energy for both the Forward Euler algorithm (top) and the Velocity Verlet algorithm (bottom). On the right, the  relative total energy for both algorithms are shown. Both figures indicates that the Forward Euler does not conserve energy, while the Velocity Verlet does. This one reason why the latter method is used throughout this project.} 
         \label{fig:energy_cons}
     \end{figure}
 
@@ -356,7 +356,7 @@ In figure (\ref{fig:cons_ang}), the total angular momentum is plotted for both a
 \end{figure}
 
 \subsubsection{Escape velocity}
-With the sun fixed Sun at origin, the theoretical escape velocity was earlier calculated to be $v \approx$ 8.8857 AU/yr. To find the velocity numerically, several velocity values were tested to see if the Earth escaped from its orbit. The trials can be seen in figure (\ref{fig:escape}. Setting $k$ to 1.41 in the formula $v = k2\pi$ AU/yr seemed to make the planet escape its orbit. This equals a velocity of 8.8859 AU/yr, which is indeed close to the theoretical value. Velocities below the escape velocity induces elliptical orbits. 
+With the sun fixed Sun at origin, the theoretical escape velocity was earlier calculated to be $v \approx$ 8.8857 AU/yr. To find the velocity numerically, several velocity values were tested to see if the Earth escaped from its orbit. The trials can be seen in figure (\ref{fig:escape}). Setting $k$ to 1.41 in the formula $v = k2\pi$ AU/yr seemed to make the planet escape its orbit. This equals a velocity of 8.8859 AU/yr, which is indeed close to the theoretical value. Velocities below the escape velocity induce elliptical orbits. 
 
 \begin{figure}[]
 \centering
@@ -364,6 +364,13 @@ With the sun fixed Sun at origin, the theoretical escape velocity was earlier ca
 \caption{The figure shows the orbit of the earth with different initial velocities determined by a constant $k$. The value 1.41 (8.8859 AU/yr) seems to make earth escape. This value is close to the theoretical value of 8.8857 AU/yr. \label{fig:escape}}
 \end{figure}
 
+In addition to experimenting with increasing initial velocities, a calculation with a weaker gravitational force were done on the Earth-Sun System. With a gravitational force going as $1/r^3$ instead of $1/r^2$, the earth started spiralling out. This can be seen in figure (\ref{fig:weaker}).
+
+\begin{figure}[]
+\centering
+\centering\includegraphics[scale=0.4]{weaker_grav_dt_0001.png}
+\caption{Earth-Sun system simulated for 100 years with weaker gravitational force. The force is now not strong enough to keep Earth in orbit. \label{fig:weaker}}
+\end{figure}
 
 \subsection{Earth-Sun-Jupiter system}
 Adding Jupiter to the system turns the problem into a three-body problem. Because Jupiter is the largest planet in the solar system, it may effect the orbits of other planets. The Velocity Verlet algorithm were in this part used to find Jupiter's impact on Earth's orbit with a time step of 0.0001. This was done both with a stationary Sun and with a moving Sun. Jupiter's mass was increased from its realistic mass to a mass 10 and 1000 times its original mass. 
@@ -394,7 +401,7 @@ Figure (\ref{fig:jupiter}) shows the same, but with a moving Sun. Now, it is eas
         \end{subfigure}
         \vskip\baselineskip
         \caption[]
-        {\small Plots of the three-body problem around a moving (left) and fixed (right) Sun. The time step was set to 0.0001. One can here see the slight influence of the Orbits due to Jupiter's large mass when the Sun is free to move.} 
+        {\small Plots of the three-body problem around a moving Sun (left) and fixed Sun (right). The time step was set to 0.0001. One can here see the slight influence of the Orbits due to Jupiter's large mass when the Sun is free to move.} 
         \label{fig:jupiter_only}
     \end{figure}
 
@@ -428,7 +435,7 @@ The calculated angular velocity was found to be around 43 arcseconds per century
 \begin{figure}[]
 \centering
 \centering\includegraphics[scale=0.4]{mercury_perihelion_comparison_dt_1e_06_f.png}
-\caption{Plot of the perihelion precession of Mercury for the Newtonian and the relativistiv force with a time step of 0.000001. The angular velocity is higher for the relativstic force (approximately 43 arcseconds/century) This fits beautifully to observations.  \label{fig:mercury}}
+\caption{Plot of the perihelion precession of Mercury for the Newtonian and the relativistic force with a time step of 0.000001. The angular velocity is approximately 43 arcseconds/century with the relativistic correction. This fits beautifully to observations.  \label{fig:mercury}}
 \end{figure}
 
 \section{Conclusion}
@@ -463,7 +470,7 @@ Lastly, Mercury's precessing orbit was plotted with and without a relativistic c
   Computational Physics,
   August 2015
 
-\bibitem{Bok}
+\bibitem{physics}
   Young, Freedman and Zemansky,
   University Physics with Modern Physics,
   Addison-Wesley,
