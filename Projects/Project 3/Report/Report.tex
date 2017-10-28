@@ -90,7 +90,7 @@
 {\large \textbf{Abstract}}
 \end{center}
 \begin{sciabstract}
-In the 1600's, Isaac Newton discovered the formulas for calculating gravitational forces between bodies in the Solar System. The formulas produce a set of coupled ordinary differential equations which can be solved numerically to simulate the orbits of the planets around the Sun. To do this, one needs accurate and fast numerical algorithms. In this project, the Forward Euler and Velocity Verlet algorithms was compared by solving the mentioned set of differential equations for various Solar System scenarios. First, both algorithms were used on the Earth-Sun system with different step sizes. The Velocity Verlet algorithm was found to be superior to the Forward Euler. Even though the Forward Euler was slightly faster, it failed to produce stable orbits even at very small step sizes. It also failed to conserve energy and angular momentum. The Velociy Verlet produced stable orbits with step sizes up to 0.01, and was thus used for the rest of the calculations.  After this, Jupiter was included in the system to find the effect of a large body on the Sun's and Earth's orbits. The mass of Jupiter was also increased beyond its realistic mass to more clearly see the effect. Jupiter was found to indirectly influence Earth's orbit by slightly changing the position of the Sun. Then, all the other planets were added to the simulation. Even with a large step size and all planets included, the Verlet algorithm again succeeded in producing stable orbits. Lastly, a relativistic correction was added to the gravitational force to match Mercury's perihelion movement to observed data. The calculated angular velocity matched the theoretical and observed value. 
+In the 1600's, Isaac Newton discovered the formulas used to calculate the gravitational forces between bodies in the Solar System. The formulas produce a set of coupled ordinary differential equations which can be solved numerically to simulate the orbits of the planets around the Sun. To do this, one needs accurate and fast numerical algorithms. In this project, the Forward Euler and Velocity Verlet algorithms was compared by solving the mentioned set of differential equations for various Solar System scenarios. First, both algorithms were used on the Earth-Sun system with different step sizes. The Velocity Verlet algorithm was found to be superior to the Forward Euler. Even though the Forward Euler was slightly faster, it failed to produce stable orbits even at very small step sizes. It also failed to conserve energy and angular momentum. The Velociy Verlet produced stable orbits with step sizes up to 0.01, and was thus used for the rest of the calculations.  After this, Jupiter was included in the system to find the effect of a large body on the Sun's and Earth's orbits. The mass of Jupiter was also increased beyond its realistic mass to more clearly see the effect. Jupiter was found to indirectly influence Earth's orbit by slightly changing the position of the Sun. Then, all the other planets were added to the simulation. Even with a large step size and all planets included, the Verlet algorithm again succeeded in producing stable orbits. Lastly, a relativistic correction was added to the gravitational force to match Mercury's perihelion movement to observed data. The calculated angular velocity matched the theoretical and observed value. 
 \end{sciabstract}
 
 
@@ -98,7 +98,7 @@ In the 1600's, Isaac Newton discovered the formulas for calculating gravitationa
 \section{Introduction}
 Differential equations are one of the most common problem a physicist encounters, and it is therefore important to have good numerical methods to solve them. 
 	
-In this project, an object-oriented c++ program simulating the gravitational interactions following Newtonian mechanics in our solar system will be made to investigate two methods for solving differential equations. The full set of coupled differential equations that arise from the system will be solved using the Velocity Verlet algorithm. 
+In this project, an object-oriented c++ program simulating the gravitational interactions in our Solar System will be made to investigate two algorithms for solving differential equations. 
 
 First, the simulation will be done for the Earth-Sun system to compare the Verlet algorithm to the classical Forward Euler algorithm in terms of stability of the orbits and conservation of energy and angular momentum. The simulation will afterwards be expanded to include Jupiter, and finally all the other planets in our solar system. In addition to this, the program will be used to calculate the escape velocity of Earth in relation to the sun, and the perihelion precession of Mercury due to general relativity. 
 
@@ -126,7 +126,7 @@ By applying Newton's second and third law, one can obtain the following second o
 \frac{d^2\mathbf{x_1}}{dt^2} = \frac{\mathbf{F_{12}}}{m_1} \quad \mathrm{and} \quad \frac{d^2\mathbf{x_2}}{dt^2} = \frac{\mathbf{F_{21}}}{m_2}
 \end{equation}
 
-The elliptical orbits of the planets around the sun can then be found by solving a set of coupled second order differential equations by rewriting the equations (\ref{eq:newt_diff}). The equations are given by:
+The elliptical orbits of the planets around the Sun can then be found by solving a set of coupled second order differential equations by rewriting the equations (\ref{eq:newt_diff}). The equations are given by:
 \begin{equation}
 \frac{d\mathbf{x}}{dt}=\mathbf{v} \quad  \mathrm{and} \quad \frac{d\mathbf{v}}{dt}=\frac{\mathbf{F}}{m}
 \end{equation}
@@ -373,7 +373,7 @@ In addition to experimenting with increasing initial velocities, a calculation w
 \end{figure}
 
 \subsection{Earth-Sun-Jupiter system}
-Adding Jupiter to the system turns the problem into a three-body problem. Because Jupiter is the largest planet in the solar system, it may effect the orbits of other planets. The Velocity Verlet algorithm were in this part used to find Jupiter's impact on Earth's orbit with a time step of 0.0001. This was done both with a stationary Sun and with a moving Sun. Jupiter's mass was increased from its realistic mass to a mass 10 and 1000 times its original mass. 
+Adding Jupiter to the system turns the problem into a three-body problem. Because Jupiter is the largest planet in the solar system, it may effect the orbits of other planets. The Velocity Verlet algorithm were in this part used to find Jupiter's impact on Earth's orbit with a time step of $10^{-4}$. This was done both with a stationary Sun and with a moving Sun. Jupiter's mass was increased from its realistic mass to a mass 10 and 1000 times its original mass. 
 
 The Sun is around 1 AU away from the Earth, while Jupiter is around 5.20 AU away from the sun. Because the gravitational force goes as $1/r^2$, the change in the Earth's orbit is mainly from the change in the Sun's position because of the gravitational force of Jupiter, and not from Jupiter directly. 
 
@@ -401,7 +401,7 @@ Figure (\ref{fig:jupiter}) shows the same, but with a moving Sun. Now, it is eas
         \end{subfigure}
         \vskip\baselineskip
         \caption[]
-        {\small Plots of the three-body problem around a moving Sun (left) and fixed Sun (right). The time step was set to 0.0001. One can here see the slight influence of the Orbits due to Jupiter's large mass when the Sun is free to move.} 
+        {\small Plots of the three-body problem around a moving Sun (left) and fixed Sun (right). The time step was set to $10^{-4}$. One can here see the slight influence of the Orbits due to Jupiter's large mass when the Sun is free to move.} 
         \label{fig:jupiter_only}
     \end{figure}
 
@@ -409,13 +409,13 @@ Figure (\ref{fig:jupiter}) shows the same, but with a moving Sun. Now, it is eas
 \begin{figure}[]
 \centering
 \centering\includegraphics[scale=0.4]{jupiter_fixed_sun_dt_00001.png}
-\caption{Plots of Earth's orbit around a stationary Sun with an increasing Jupiter mass. The time step was set to 0.0001. Earth's orbit it still stable at Jupiter's original mass times 10, but it becomes unstable when increased to 1000.  \label{fig:jupiter_fixed}}
+\caption{Plots of Earth's orbit around a stationary Sun with an increasing Jupiter mass. The time step was set to $10^{-4}$. Earth's orbit it still stable at Jupiter's original mass times 10, but it becomes unstable when increased to 1000.  \label{fig:jupiter_fixed}}
 \end{figure}
 
 \begin{figure}[]
 \centering
 \centering\includegraphics[scale=0.4]{jupiter_dt_00001.png}
-\caption{Plots of Earth's orbit around a moving Sun with an increasing Jupiter mass. The time step was set to 0.0001. Earth's orbit is here disrubted when Jupiter's mass is increased tenfold. Increasing it shousandfold sends the Earth out of orbit.  \label{fig:jupiter}}
+\caption{Plots of Earth's orbit around a moving Sun with an increasing Jupiter mass. The time step was set to $10^{-4}$. Earth's orbit is here disrubted when Jupiter's mass is increased tenfold. Increasing it shousandfold sends the Earth out of orbit.  \label{fig:jupiter}}
 \end{figure}
 
 \subsection{Full solar system}
@@ -435,11 +435,11 @@ The calculated angular velocity was found to be around 43 arcseconds per century
 \begin{figure}[]
 \centering
 \centering\includegraphics[scale=0.4]{mercury_perihelion_comparison_dt_1e_06_f.png}
-\caption{Plot of the perihelion precession of Mercury for the Newtonian and the relativistic force with a time step of 0.000001. The angular velocity is approximately 43 arcseconds/century with the relativistic correction. This fits beautifully to observations.  \label{fig:mercury}}
+\caption{Plot of the perihelion precession of Mercury for the Newtonian and the relativistic force with a time step of $10^{-6}$. The angular velocity is approximately 43 arcseconds/century with the relativistic correction. This fits beautifully to observations.  \label{fig:mercury}}
 \end{figure}
 
 \section{Conclusion}
-The first goal of the project was to determine the accuracy of the Forward Euler and Velocity Verlet algorithms. He latter was found to be superior in terms of accuracy, even though the Forward Euler was faster and easier to implement. What makes the Velocity Verlet superior is the fact that it produces stable orbits at step sizes up to $dt = \mathrm{0.01}$, while the Forward Euler needed much finer step sizes to produce close to stable orbits. 
+The first goal of the project was to determine the accuracy of the Forward Euler and Velocity Verlet algorithms. The latter was found to be superior in terms of accuracy, even though the Forward Euler was faster and easier to implement. What makes the Velocity Verlet superior is the fact that it produces stable orbits at step sizes up to $dt = \mathrm{0.01}$, while the Forward Euler needed much finer step sizes to produce close to stable orbits. 
 
 The escape velocity of the Earth was calculated using the Velocity Verlet algorithm to see if it matched the theoretical one. The calculated value was indeed close, proving that the algorithm is accurate in simulating the Solar System. It was also proven accurate when checking for conservation of total energy and angular momentum. The Forward Euler failed to do this. It is important that these quantities are conserved when dealing with gravitational forces. 
 
