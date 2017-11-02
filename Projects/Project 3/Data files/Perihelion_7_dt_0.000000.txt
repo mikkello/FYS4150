@@ -1,0 +1,4 @@
+Perihelion angle (arcseconds) Time
+-0.736763 0.240732
+-2.30797 0.481463
+-5.3527 1.20366

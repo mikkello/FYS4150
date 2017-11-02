@@ -1,0 +1,2 @@
+N_timesteps N_planets N_years dt
+              100000 2 10 0.0001000000000
