@@ -1,0 +1,24 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Theory}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{The Ising model}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Calculating properties of the system}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Analytical solution of the Ising model for L = 2}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{Method}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{The Metropolis algorithm}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.2}{The critical temperature}{section.3}% 8
+\BOOKMARK [1][-]{section.4}{Experimental}{}% 9
+\BOOKMARK [2][-]{subsection.4.1}{Comparison of numerical results to analytical values}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.2}{Thermalization}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.3}{Analysing the probability distribution}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.4}{Study of phase transitions}{section.4}% 13
+\BOOKMARK [1][-]{section.5}{Results}{}% 14
+\BOOKMARK [2][-]{subsection.5.1}{Comparison of numerical results to analytical values}{section.5}% 15
+\BOOKMARK [2][-]{subsection.5.2}{Thermalization}{section.5}% 16
+\BOOKMARK [2][-]{subsection.5.3}{Probability distribution}{section.5}% 17
+\BOOKMARK [2][-]{subsection.5.4}{Phase transitions}{section.5}% 18
+\BOOKMARK [1][-]{section.6}{Discussion}{}% 19
+\BOOKMARK [2][-]{subsection.6.1}{Comparison of numerical results to analytical values}{section.6}% 20
+\BOOKMARK [2][-]{subsection.6.2}{Thermalization}{section.6}% 21
+\BOOKMARK [2][-]{subsection.6.3}{Probability distribution}{section.6}% 22
+\BOOKMARK [2][-]{subsection.6.4}{Phase transitions}{section.6}% 23
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 24
