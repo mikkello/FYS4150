@@ -1,0 +1,17 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Theory}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Simple model for monetary transactions}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Pareto distributions}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Savings}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Nearest neighbours}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{Memory of previous transactions}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Method}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{Monte Carlo simulation}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.2}{Variance}{section.3}% 10
+\BOOKMARK [1][-]{section.4}{Experimental set-up and results}{}% 11
+\BOOKMARK [2][-]{subsection.4.1}{Simple model \(no preferences\)}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.2}{Equilibrium analysis}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.3}{Savings}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.4}{Nearest neighbours}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.5}{Memory of previous transactions}{section.4}% 16
+\BOOKMARK [1][-]{section.5}{Conclusion and discussion}{}% 17
