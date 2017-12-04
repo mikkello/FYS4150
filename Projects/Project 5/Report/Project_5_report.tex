@@ -31,7 +31,7 @@
 
 
 
-\title{FYS4150 Project 5 - Simulations of monetary transactions using Monte Carlo simulations} 
+\title{FYS4150 Project 5 - Simulations of monetary transactions using Monte Carlo methods} 
 \author
 {Mikkel Killingmoe Christensen\\
 \\
@@ -60,7 +60,7 @@
 {\large \textbf{Abstract}}
 \end{center}
 \begin{sciabstract}
-Wealth inequality is a huge problem in the world today, and good models  for the economics behind this could be useful to improve the situation. In this project, a model mimicing monetary transactions between agents in a simple economy was made and implemented in C++ using Monte Carlo methods. The model was based on the work by Patriarca et. al \cite{Patriarca} and Goswami and Sen \cite{Goswami}. The model was gradually expanded upon to include savings and biases based on wealth similarity and transaction history. This allowed us to analyze the impact of these biases on the distribution of wealth. It was found that wealth was unevenly distributed for the model without biases. By adding a parameter for savings, the wealth inequality was reduced. Introducing biases based on wealth similarity, on the other hand, increased the inequality.  Adding a bias based on transaction history reduced the inequality, especially when the bias for wealth similarity was high. Furthermore, the tails of the distributions were found to fit Pareto distributions \cite{Pareto}. The results were similar to the mentioned articles, but some discrepancies were found, possibly due to the lack of some essential experimental data in the articles making them difficult to reproduce.  
+Wealth inequality is a huge problem in the world today, and good models  for the economics behind this could be useful to improve the situation. In this project, a model mimicing monetary transactions between agents in a simple economy was made and implemented in C++ using Monte Carlo methods. The model was based on the work by Patriarca et. al \cite{Patriarca} and Goswami and Sen \cite{Goswami}. The model was gradually expanded upon to include savings and biases based on wealth similarity and transaction history. This allowed us to analyze the impact of these biases on the distribution of wealth. It was found that wealth was unevenly distributed when using the model without biases. By adding a parameter for savings, the wealth inequality was reduced. Introducing biases based on wealth similarity, on the other hand, increased the inequality.  Adding a bias based on transaction history agian reduced the inequality, especially when the bias for wealth similarity was high. Furthermore, the tails of the distributions were found to fit Pareto distributions \cite{Pareto}. The results were similar to the mentioned articles, but some discrepancies were found, possibly due to the lack of some essential experimental data in the articles making them difficult to reproduce.  
 \end{sciabstract}
 
 
@@ -97,10 +97,11 @@ The agents will never have debt, that is $m\geq0$. Furthermore, the system reach
 \label{eq:Gibbs_dist}
 w_{m} = \beta e^{-\beta m}, \ \, \beta = \frac{1}{\langle M\rangle},
 \end{equation}
-where $\langle M\rangle$ is the average money given by $\sum_i m_i/N = m_0$. After an equilibrium is reached, the majority of the agents is left with lower wealth than they initially had, and the number of rich agents exponentially decrease. 
+where $\langle M\rangle$ is the average money given by $\langle M\rangle = \sum_i m_i/N = m_0$. After an equilibrium is reached, the majority of the agents is left with lower wealth than they initially had, and the number of rich agents exponentially decrease. This is what we define as wealth inequality.
 
 The Gibbs distribution in equation \ref{eq:Gibbs_dist} yields the following linear equation:
 \begin{equation}
+\label{eq:lin_gibbs}
 ln(w_m) = ln(\beta)-\beta m.
 \end{equation}
 
@@ -109,12 +110,12 @@ ln(w_m) = ln(\beta)-\beta m.
 In 1897, Vilfredo Pareto wanted to describe wealth and income distribution through power law probability distributions. He showed that the higher end of the distribution of money follows the distribution \cite{Pareto}:
 \begin{equation}
 \label{eq:pareto_dist}
-w_m \propto m^{-1-\alpha}, \ \ \alpha\in [1,2].
+w_m \propto m^{-1-\nu}, \ \ \nu\in [1,2].
 \end{equation}
-By choosing a certain $\alpha$ in this equation, one can derive the famous rule saying that 20\% of the population controls 80\% of the wealth.
+By choosing a certain $\nu$ in this equation, one can derive the famous rule saying that 20\% of the population controls 80\% of the wealth.
 
 \subsection{Savings}
-The model will now be expanded to include a savings rate $\lambda$. It is defined as a part of an agent's wealth that is not included in a transaction. This will not change the fact that money is conserved through equation (\ref{eq:money_cons}). The equations for the wealth of agents $i$ and $j$ now becomes:
+The model will now be expanded to include a savings rate $\lambda$. It is defined as a part of an agent's wealth that is not included in a transaction. This will not change the fact that money is conserved through equation \ref{eq:money_cons}. The equations for the wealth of agents $i$ and $j$ now becomes:
 \begin{equation}
 m^{'}_{i} = \lambda m_i + \epsilon(1-\lambda)(m_i + m_j)
 \end{equation}
@@ -154,7 +155,7 @@ The final addition to the model simulates the fact that agents prefer to trade w
 \begin{equation}
 p_{ij} \propto |m_i - m_j|^{-\alpha}(c_{ij}+1)^{\gamma},
 \end{equation}
-where $c_{ij}$ is the number of times agents $i$ and $j$ have traded. The strength of the effect is regulated by the parameter $\gamma$.
+where $c_{ij}$ is the number of times agents $i$ and $j$ have traded. The strength of the effect is regulated by the memory parameter $\gamma$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%Method%%%%%%%%%%%%%%%%%%%%%
@@ -163,8 +164,11 @@ where $c_{ij}$ is the number of times agents $i$ and $j$ have traded. The streng
 The code used to implement the presented model was written in C++ and is available at \url{https://github.com/mikkello/FYS4150/}. Data files, plotting scipts and plots can also be found here. The program consists of the files \textbf{main.cpp}, \textbf{functions.cpp} and \textbf{functions.h}.
 
 \subsection{Monte Carlo simulation}
-The model is, as mentioned in the introduction, implemented using Monte Carlo methods. These methods rely on random sampling to obtain numerical results. A simplified version of the algorithm used in this project is shown below. One cycle of this algorithm is defined as one Monte Carlo cycle. 
+The model is, as mentioned in the introduction, implemented using Monte Carlo methods. These methods rely on random sampling to obtain numerical results. A simplified version of the algorithm used in this project is shown below. One cycle of this algorithm is defined as one Monte Carlo cycle.  The accuracy and reliability of the method depends on the number of cycles and transactions per cycle used. It is therefore a good idea to find the right balance between the number of cycles and computation time. 
 \bigbreak
+\begin{center}
+\textbf{Main algorithm}
+
 \fbox{
 \parbox{10cm}{
 \begin{enumerate}
@@ -172,15 +176,17 @@ The model is, as mentioned in the introduction, implemented using Monte Carlo me
 \item Loop iterating over transactions:
 \setlength{\itemindent}{4em}
 \item Two agents are randomly selected
-\item If agents want to interact:
+\item If agents want to interact based on preferences:
 \setlength{\itemindent}{8em}
 \item Calculate amount of wealth to transfer
 \item Transfer wealth
-\setlength{\itemindent}{4em}
+\setlength{\itemindent}{0em}
 \item Update wealth distribution
 \end{enumerate}
 }
 }
+\end{center}
+
 
 \subsection{Variance}
 The variance of the agents' wealth will be used to measure when the program reaches equilibrium. The variance is defined as the squared difference between the agents' wealth and their initial wealth. This is also a measure of wealth inequality, which is an interesting and much discussed parameter in economy. The variance is defined as:
@@ -195,14 +201,16 @@ The Gibbs distribution in equation \ref{eq:Gibbs_dist} yields a variance of $\si
 %%%%%%%%%%%Results and discussion%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Experimental set-up and results}
-In all calculations in this project, $\textrm{$10^3$}$ Monte Carlo cycles and $\textrm{$10^7$}$ transactions per cycle were used. The numbers were chosen to ensure that equilibrium would be reached. 
+In all calculations in this project, $\textrm{$10^3$}$ Monte Carlo cycles and $\textrm{$10^7$}$ transactions per cycle were used. The numbers were chosen to ensure that equilibrium would be reached. More details on this will be presented in section 4.2.
 \subsection{Simple model (no preferences)}
-The program was first used on the simple version of the model where the agents does not have any preferences for partners and trades all their money in a transaction (that is $\lambda, \alpha, \gamma$ = 0.). The program included an algorithm which produced a normalized histogram as a function of wealth $m$ with bin size $\Delta m$ = 0.05. The distribution of wealth were calculated using 500 agents. In figure \ref{fig:b_hist}a, this histogram can be seen together with the theoretical Gibbs distribution. In figure \ref{fig:b_hist}b, the corresponding logarithmic plot of figure \ref{fig:b_hist}a can be seen. It clearly shows a linear relationship as it follows the line of the theoretical Gibbs distribution in blue. This is expected, as the logarithm of the Gibbs distribution is a first degree polynomial. 
+The program was first used on the simple version of the model where the agents do not have any preferences for partners, and trade all their money in a transaction (that is $\lambda, \alpha, \gamma$ = 0.). The program included an algorithm which produced a normalized histogram as a function of wealth $m$ with bin size $\Delta m$ = 0.05. The distribution of wealth were calculated using $N_{agents} = 500$. In figure \ref{fig:b_hist}a, this histogram can be seen together with the theoretical Gibbs distribution. In figure \ref{fig:b_hist}b, the corresponding logarithmic plot of figure \ref{fig:b_hist}a can be seen. It clearly shows a linear relationship as it follows the line of the theoretical Gibbs distribution in blue. This is expected, as the logarithm of the Gibbs distribution is a first degree polynomial (equation \ref{eq:lin_gibbs}). 
+
+As predicted in the theory section, the simple model created an economy where most people are poor, and a few are very rich. Even though these plots share some characteristics with a real economy, the model is not realistic as the agents always trade with their whole net fortune, and they have no biases towards who they trade with. 
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.35]{task_b_histogram_agents_500_MCC_1000_N_trans_10000000.png}
-\caption{Histogram of equilibrium distribution a) and corresponding logarithmic plot b) using the simple model with 500 agents and bin size $\Delta m$ = 0.05. The distribution is clearly linear in b) as it follows the line of the theoretical Gibbs distribution in blue.   \label{fig:b_hist}}
+\caption{Histogram of equilibrium distribution (a) and corresponding logarithmic plot (b) using the simple model with 500 agents and bin size $\Delta m$ = 0.05. The distribution is clearly linear in (b) as it follows the line of the theoretical Gibbs distribution in blue.   \label{fig:b_hist}}
 \end{figure}
 
 \subsection{Equilibrium analysis}
@@ -263,7 +271,7 @@ The results are close to the results shown in figure 1 in Goswami and Sen \cite{
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{task_d_alpha.png}
-\caption{Probability distributions for wealth for different values of $N_{agents}$, $\lambda$ and $\alpha$. In a) and b), most agents are poor and a small fraction is very rich. This wealth inequality is reduced when savings are included in b) and d). Increasing the parameter $\alpha$ increases wealth inequality in all plots.  \label{fig:task_d_alpha}}
+\caption{Probability distributions for wealth for different values of $N_{agents}$, $\lambda$ and $\alpha$. In (a) and (b), most agents are poor and a small fraction is very rich. This wealth inequality is reduced when savings are included in (b) and (d). Increasing the parameter $\alpha$ increases wealth inequality in all plots.  \label{fig:task_d_alpha}}
 \end{figure}
 
 \begin{table}[h!]
@@ -297,25 +305,27 @@ The results are close to the results shown in figure 1 in Goswami and Sen \cite{
 
 
 \subsection{Memory of previous transactions} 
-The last effect included in the model is an agent's memory of previous transactions. The power this had on the probability of a transaction was given by the memory parameter $\gamma$. The program was now run with $N_{agents}$ = 1000, $\lambda$ = [0.00, 0.50] and $\alpha$ = [1.00, 2.00]. For each of these situations, the parameter $\gamma$ was varied from 0.00 to 4.00, and the impact this has on wealth distribution can be seen in figure \ref{fig:task_e_gamma}. The extracted values for the Pareto exponents and the corresponding variances can be seen in table \ref{tab:gamma}.
+The last effect included in the model is an agent's memory of previous transactions. The power this had on the probability of a transaction was given by the memory parameter $\gamma$. The program was now run with $N_{agents}$ = 1000, $\lambda$ = [0.00, 0.50] and $\alpha$ = [1.00, 2.00]. For each of these situations, the parameter $\gamma$ was varied from 0.00 to 4.00, and the impact this has on wealth distribution can be seen in figure \ref{fig:task_e_gamma}. 
 
-Introducing the memory parameter $\gamma$ without saving and $\alpha$ = 1 (figure \ref{fig:task_d_alpha}a) had a small effect on the distribution. It lowered the probability of being poor and decreased the maximum amount of wealth for the rich. Increasing $\gamma$ further from 1.00 to 4.00 in this situation had almost no effect. 
+Introducing the memory parameter $\gamma$ without saving and $\alpha$ = 1 (figure \ref{fig:task_e_gamma}a) had a small effect on the distribution. It lowered the probability of being poor and decreased the maximum amount of wealth for the rich. Increasing $\gamma$ further from 1.00 to 4.00 in this situation had almost no effect. 
 
-However, when $\alpha$ = 2 (figure \ref{fig:task_d_alpha}c), the change of $\gamma$ from 1.00 to 4.00 had a slightly stronger impact on the distribution by reducing the wealth of the rich even more. 
+However, when $\alpha$ = 2 (figure \ref{fig:task_e_gamma}c), the change of $\gamma$ from 1.00 to 4.00 had a slightly stronger impact on the distribution by reducing the wealth of the rich even more. 
 
-Introducing savings (figure \ref{fig:task_d_alpha}b and d) dampened the effects of $\alpha$ and $\gamma$, and also reduced the wealth inequality as before. 
+Introducing savings (figure \ref{fig:task_e_gamma}b and d) dampened the effects of $\alpha$ and $\gamma$, and also reduced the wealth inequality as before.
+
+The extracted values for the Pareto exponents and the corresponding variances can be seen in table \ref{tab:gamma}. Long pareto tails (low $\nu$) was found when there was no savings, $\alpha$ was high and $\gamma$ was low.
 
 Comparing figure \ref{fig:task_e_gamma} to figure 5 and 6 in Goswami and Sen \cite{Goswami}, one can see that the plots are similar for $\alpha$ = 1.00. For $\alpha = 2.00$ the differences are slightly larger. There is also a kink in the plots at low amount of money which was not seen in this project.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.4]{task_e_gamma.png}
-\caption{Probability distributions for wealth for different values of $\alpha$, $\lambda$ and $\gamma$. In a) and b), most agents are poor, and a small fraction is very rich. This wealth inequality is reduced when savings are included in b) and d). Introducing the memory parameter $\gamma$ also leads to a reduction in inequality. Increasing $\gamma$ has a stronger effect when $\alpha$ = 2.    \label{fig:task_e_gamma}}
+\caption{Probability distributions for wealth for different values of $\alpha$, $\lambda$ and $\gamma$. In (a) and (b), most agents are poor, and a small fraction is very rich. This wealth inequality is reduced when savings are included in (b) and (d). Introducing the memory parameter $\gamma$ also leads to a reduction in inequality. Increasing $\gamma$ has a stronger effect when $\alpha$ = 2.    \label{fig:task_e_gamma}}
 \end{figure}
 
 \begin{table}[ht!]
 \centering
-\caption{Estimated Pareto exponents $\nu$ as a function of different values of  $\lambda$, $\alpha$ and $\gamma$. The computed variances are also shown.} \label{tab:gamma}
+\caption{Estimated Pareto exponents $\nu$ as a function of different values of  $\lambda$, $\alpha$ and $\gamma$. The computed variances are also shown. Long pareto tails (low $\nu$) can be found when there is no savings, $\alpha$ is high and $\gamma$ is low.} \label{tab:gamma}
 \begin{tabular}{| c | c | c | c | c | c |} \hline
 \textbf{$N_{agents}$} & $\lambda$ & $\alpha$ & $\gamma$ &  $\nu$ & $\sigma^2_m$\\ \hline
 1000 & 0.00 & 1.00 & 0.00 & 4.284 & 0.134 \\ \hline
@@ -356,15 +366,17 @@ Comparing figure \ref{fig:task_e_gamma} to figure 5 and 6 in Goswami and Sen \ci
 In this project, two articles by Patriarca et. al \cite{Patriarca} and  
 Goswami and Sen \cite{Goswami} were used to build a basic model for monetary transactions in an economy where agents could exchange money based on a certain probability. The model was later implemented in C++ using Monte Carlo methods.
 
-The results were close to the results Goswami et. al \cite{Goswami}, but there were some differences. One problem with the articles used in this project is the lack of some experimental data needed to reproduce the given results. It was therefore necessary to do some assumptions.
+The results were close to the results of Patriarca et. al \cite{Patriarca} and Goswami and Sen \cite{Goswami}, but there were some differences. One problem with the articles used in this project is the lack of some experimental data needed to reproduce the given results. It was therefore necessary to do some assumptions.
 
 The basic model without any preferences and memory of the agents yielded an uneven wealth distribution with many poor and a few rich agents. 
 
 When the savings parameter $\lambda$ was introduced, however, it lead to less risk-taking and yielding a narrower distribution of wealth and thus less inequality. This definitely makes the model more realistic, as it would be strange if all agents always traded all their money. It is important to note that the savings model used in this project does not account for time. A more realistic model would have defined what an agent saves over a month or a year. It could thus be useful in to add time dynamics in future developments of this project. 
 
-A high nearest neighbour parameter $\alpha$, on the other hand, caused more people to be poor and rich people to become richer. This wealth inequality increased with an increasing $\alpha$. This parameter also introduced a Pareto tail to the distribution, and the length of the tail decreased with an increasing savings parameter. 
+A high nearest neighbour parameter $\alpha$, on the other hand, caused more people to be poor and rich people to become richer. Thus, wealth inequality increased with an increasing $\alpha$. 
 
 Lastly, the memory parameter $\gamma$ reduced the flow of money, thereby reducing the wealth inequality and dampening the effects of the nearest neighbour interactions. This effect was more clearly seen when the preferential parameter $\alpha$ was high. 
+
+All parameters introduced a Pareto tail to the distribution, and the length of the tail depended on the value of the different parameters. It was found to be long for low values of $\lambda$, high values of $\alpha$ and low values of $\gamma$. A more thorough statistical analysis is needed to fully conclude here.  
 
 If the goal is to reduce wealth inequality in an economy, one should thus aim for trading with small amounts of money (high $\lambda)$, no preference of agents (low $\alpha$) and trading based on previous transaction partners (high $\gamma$).
 
@@ -397,16 +409,6 @@ If the goal is to reduce wealth inequality in an economy, one should thus aim fo
 \bibitem{Pareto}
   Pareto, V. (1897), \textit{Cours d'Economique politique}, Lausanne
   
-
-\bibitem{Bok}
-  Hjorth-Jensen, M.,
-  Computational Physics,
-  August 2015
-
-\bibitem{Project}
-  Hjorth-Jensen, M.,
-  \url{http://compphysics.github.io/ComputationalPhysics/doc/Projects/2017/Project5/FinancialEngineering/pdf/FinancialEngineering.pdf},
-  accessed: 23th of November 2017
 
   
 
