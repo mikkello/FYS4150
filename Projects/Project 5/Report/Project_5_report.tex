@@ -52,8 +52,7 @@
 \maketitle 
 
 
-\tableofcontents
-\clearpage
+
 
 
 \begin{center}
@@ -63,7 +62,8 @@
 Wealth inequality is a huge problem in the world today, and good models  for the economics behind this could be useful to improve the situation. In this project, a model mimicing monetary transactions between agents in a simple economy was made and implemented in C++ using Monte Carlo methods. The model was based on the work by Patriarca et. al \cite{Patriarca} and Goswami and Sen \cite{Goswami}. The model was gradually expanded upon to include savings and biases based on wealth similarity and transaction history. This allowed us to analyze the impact of these biases on the distribution of wealth. It was found that wealth was unevenly distributed when using the model without biases. By adding a parameter for savings, the wealth inequality was reduced. Introducing biases based on wealth similarity, on the other hand, increased the inequality.  Adding a bias based on transaction history agian reduced the inequality, especially when the bias for wealth similarity was high. Furthermore, the tails of some of the distributions were found to fit Pareto distributions \cite{Pareto}. The results were similar to the mentioned articles, but some discrepancies were found, possibly due to the lack of some essential experimental data in the articles making them difficult to reproduce.  
 \end{sciabstract}
 
-
+\tableofcontents
+\clearpage
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -323,7 +323,7 @@ Comparing figure \ref{fig:task_e_gamma} to figure 5 and 6 in Goswami and Sen \ci
 \caption{Probability distributions for wealth for different values of $\alpha$, $\lambda$ and $\gamma$. In (a) and (b), most agents are poor, and a small fraction is very rich. This wealth inequality is reduced when savings are included in (b) and (d). Introducing the memory parameter $\gamma$ also leads to a reduction in inequality. Increasing $\gamma$ has a stronger effect when $\alpha$ = 2.    \label{fig:task_e_gamma}}
 \end{figure}
 
-\begin{table}[ht!]
+\begin{table}[]
 \centering
 \caption{Estimated Pareto exponents $\nu$ as a function of different values of  $\lambda$, $\alpha$ and $\gamma$. The computed variances are also shown. Long pareto tails (low $\nu$) can be found when there is no savings, $\alpha$ is high and $\gamma$ is low.} \label{tab:gamma}
 \begin{tabular}{| c | c | c | c | c | c |} \hline
@@ -383,7 +383,7 @@ If the goal is to reduce wealth inequality in an economy, one should thus aim fo
  
 
 
- 
+ \clearpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%References%%%%%%%%%%%%%%%%%
